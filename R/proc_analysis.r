@@ -32,5 +32,7 @@ proc_analysis <- function(D, nperm=1000, seed=NA)
       if(perm_proc_ss <= m2ss) pvalue <- pvalue + 1
    }
    pvalue <- pvalue / nperm
-   return(list(p=pvalue, ss=m2ss, n=nperm))
+   D$proc <- proc
+   D$gof <- list(p=pvalue, ss=m2ss, n=nperm)
+   return(D)
 }
