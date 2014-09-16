@@ -28,7 +28,7 @@ proc_analysis <- function(D, nperm=1000, seed=NA)
       }
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- paco(perm_D)
-      perm_proc_ss <- procrustes(X=perm_D$H_PCo, Y=perm_D$P_PCo)$ss
+      perm_proc_ss <- procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo)$ss
       if(perm_proc_ss <= m2ss) pvalue <- pvalue + 1
    }
    pvalue <- pvalue / nperm
