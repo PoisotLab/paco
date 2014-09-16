@@ -12,7 +12,7 @@ link_contribution <- function(D)
       HP_ind <- D$HP
       HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
       PACo.ind <- paco(D$H, D$P, HP_ind)
-      Proc.ind <- procrustes(PACo.ind$H_PCo, PACo.ind$P_PCo) 
+      Proc.ind <- procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo) 
       res.Proc.ind <- c(residuals(Proc.ind))
       res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
       SQres.jackn[i, ] <- res.Proc.ind   #Append residuals to matrix of jackknifed squared residuals

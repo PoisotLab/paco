@@ -6,7 +6,7 @@
 proc_analysis <- function(D, nperm=1000, seed=NA)
 {
    if(!("H_PCo" %in% names(D))) D <- paco(D)
-   proc <- procrustes(D$H_PCo, D$P_PCo)
+   proc <- procrustes(X=D$H_PCo, Y=D$P_PCo)
    Nlinks <- sum(D$HP)
    ## Goodness of fit
    m2ss <- proc$ss
@@ -28,7 +28,7 @@ proc_analysis <- function(D, nperm=1000, seed=NA)
       }
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- paco(perm_D)
-      perm_proc_ss <- procrustes(perm_D$H_PCo, perm_D$P_PCo)$ss
+      perm_proc_ss <- procrustes(X=perm_D$H_PCo, Y=perm_D$P_PCo)$ss
       if(perm_proc_ss <= m2ss) pvalue <- pvalue + 1
    }
    pvalue <- pvalue / nperm
