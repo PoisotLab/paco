@@ -1,5 +1,6 @@
 #' Contribution of individual links
-#' @param D
+#' @param D A list returned by proc_analysis
+#' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
 link_contribution <- function(D)
 {

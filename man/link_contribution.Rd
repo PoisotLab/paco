@@ -6,7 +6,10 @@
 link_contribution(D)
 }
 \arguments{
-\item{D}{}
+\item{D}{A list returned by proc_analysis}
+}
+\value{
+A list with added object jacknife, containing the mean and upper CI values for each link
 }
 \description{
 Contribution of individual links
