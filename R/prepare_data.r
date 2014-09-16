@@ -9,7 +9,7 @@ pre_paco <- function(H, P, HP)
 {
    if(NROW(H) != NCOL(H)) stop("H should be a square matrix")
    if(NROW(P) != NCOL(P)) stop("P should be a square matrix")
-   if((NROW(H) == NCOL(HP)) & (NROW(P) == NROW(HP)))
+   if(NROW(H) != NROW(HP))
    {
       warning("The HP matrix should have hosts in rows. It has been translated.")
       HP <- t(HP)
