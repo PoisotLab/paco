@@ -11,7 +11,7 @@ link_contribution <- function(D)
    {
       HP_ind <- D$HP
       HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
-      PACo.ind <- paco(D$H, D$P, HP_ind)
+      PACo.ind <- paco(list(H=D$H, P=D$P, HP=HP_ind))
       Proc.ind <- procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo) 
       res.Proc.ind <- c(residuals(Proc.ind))
       res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
