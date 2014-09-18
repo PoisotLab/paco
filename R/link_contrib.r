@@ -4,7 +4,7 @@
 #' @export
 link_contribution <- function(D)
 {
-   HP.ones <- which(D$HP > 0, arr.in=TRUE)
+   HP.ones <- which(D$HP > 0, arr.ind=TRUE)
    SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
    colnames(SQres.jackn) <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
    t.critical = qt(0.975,sum(D$HP)-1) #Needed to compute 95% confidence intervals.

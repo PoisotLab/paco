@@ -5,7 +5,13 @@
 #' @param HP Host-parasite association matrix, hosts in rows
 #' @return A list with objects H, P, HP
 #' @export
-pre_paco <- function(H, P, HP)
+#' @examples 
+#' data(gopherlice)
+#' library(ape)
+#' gdist <- cophenetic(gophertree)
+#' ldist <- cophenetic(licetree)
+#' D <- prepare_paco_data(gdist, ldist, gl_links)
+prepare_paco_data <- function(H, P, HP)
 {
    if(NROW(H) != NCOL(H)) stop("H should be a square matrix")
    if(NROW(P) != NCOL(P)) stop("P should be a square matrix")
