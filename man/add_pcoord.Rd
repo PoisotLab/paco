@@ -21,6 +21,5 @@ gdist <- cophenetic(gophertree)
 ldist <- cophenetic(licetree)
 D <- prepare_paco_data(gdist, ldist, gl_links)
 D <- add_pcoord(D)
-print(D$gof)
 }
 

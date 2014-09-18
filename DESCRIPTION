@@ -6,10 +6,12 @@ Author: Juan Antonio Balbuena <ja.balbuena@uv.es>, Timothee Poisot
     <t.poisot@gmail.com>
 Maintainer: Timothee Poisot <t.poisot@gmail.com>
 Depends:
-    R (>= 2.12.0)
+    R (>= 3.0.0)
 Imports:
     ape,
-    vegan
+    vegan,
+    plyr,
+    reshape2
 Description: Performs procustes analysis of cophylogenies
-License: MIT + file LICENSE
+License: file LICENSE
 URL: http://www.uv.es/cophylpaco/

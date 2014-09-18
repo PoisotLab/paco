@@ -3,7 +3,7 @@
 \alias{PACo}
 \title{Performs PACo/procustes analysis}
 \usage{
-PACo(D, nperm = 1000, seed = NA)
+PACo(D, nperm = 1000, seed = NA, margin = 1)
 }
 \arguments{
 \item{D}{a list with the data}
@@ -11,6 +11,8 @@ PACo(D, nperm = 1000, seed = NA)
 \item{nperm}{Number of permutations}
 
 \item{seed}{Seed if results need to be reproduced}
+
+\item{margin}{The margin to sample (1 to sample rows, 2 to sample columns)}
 }
 \description{
 Performs PACo/procustes analysis

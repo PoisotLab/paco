@@ -2,6 +2,8 @@
 #' @param D a list with the data
 #' @param nperm Number of permutations
 #' @param seed Seed if results need to be reproduced
+#' @param margin The margin to sample (1 to sample rows, 2 to sample columns)
+#' @param enforce Whether all species should have at least one interaction
 #' @export
 #' @examples 
 #' data(gopherlice)
@@ -12,7 +14,7 @@
 #' D <- add_pcoord(D)
 #' D <- PACo(D, nperm=10, seed=42)
 #' print(D$gof)
-PACo <- function(D, nperm=1000, seed=NA)
+PACo <- function(D, nperm=1000, seed=NA, margin=1)
 {
    if(!("H_PCo" %in% names(D))) D <- add_pcoord(D)
    proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo)
@@ -23,17 +25,10 @@ PACo <- function(D, nperm=1000, seed=NA)
    if(!is.na(seed)) set.seed(seed)
    for(n in c(1:nperm))
    {
-      if (Nlinks <= NROW(D$HP) | Nlinks <= NCOL(D$HP))
-      {
-         flag <- TRUE
-         while(flag)
-         {
-            permuted_HP <- t(apply(D$HP,1,sample)) # TODO Use permut
-            if(any(colSums(permuted_HP) == Nlinks)) flag <- TRUE
-         }
-      } else {
-         permuted_HP <- t(apply(D$HP, 1, sample))
-      }
+      el <- subset(reshape2::melt(D$HP), value>0)
+      el[,margin] <- sample(el[,margin])
+      permuted_HP <- reshape2::acast(el, Var1~Var2)
+      permuted_HP[is.na(permuted_HP)] <- 0
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)
       perm_proc_ss <- vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo)$ss

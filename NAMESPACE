@@ -2,5 +2,5 @@
 
 export(PACo)
 export(add_pcoord)
-export(link_contribution)
+export(paco_links)
 export(prepare_paco_data)
