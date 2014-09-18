@@ -9,25 +9,7 @@ no. 4 (2013): e61048. doi:[10.1371/journal.pone.0061048][doi].
 
 ## How to use
 
-~~~ R
-library(paco)
+Have a look at the manual, `?PACo` has a full example.
 
-# hdist <- host distance matrix
-# pdist <- parasite distance matrix
-# A <- association matrix
-
-# Step 1 -- generate data
-D <- list(H = hdist, P = pdist, HP = A)
-
-# Step 2 -- goodness of fit
-D <- proc_analysis(D, seed=42, nperm=1000)
-
-print(D$gof)
-
-# Step 3 -- individual link contribution
-D <- link_contribution(D)
-
-print(D$jacknife)
-~~~
 
 [doi]: http://dx.doi.org/10.1371/journal.pone.0061048
