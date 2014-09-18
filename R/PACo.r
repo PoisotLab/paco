@@ -3,7 +3,6 @@
 #' @param nperm Number of permutations
 #' @param seed Seed if results need to be reproduced
 #' @param margin The margin to sample (1 to sample rows, 2 to sample columns)
-#' @param enforce Whether all species should have at least one interaction
 #' @export
 #' @examples 
 #' data(gopherlice)
@@ -27,7 +26,7 @@ PACo <- function(D, nperm=1000, seed=NA, margin=1)
    {
       el <- subset(reshape2::melt(D$HP), value>0)
       el[,margin] <- sample(el[,margin])
-      permuted_HP <- reshape2::acast(el, Var1~Var2)
+      permuted_HP <- reshape2::acast(el, Var1~Var2, length)
       permuted_HP[is.na(permuted_HP)] <- 0
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)

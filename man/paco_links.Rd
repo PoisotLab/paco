@@ -3,10 +3,12 @@
 \alias{paco_links}
 \title{Contribution of individual links}
 \usage{
-paco_links(D)
+paco_links(D, ...)
 }
 \arguments{
 \item{D}{A list returned by proc_analysis}
+
+\item{...}{Additional arguments to be passed to PACo}
 }
 \value{
 A list with added object jacknife, containing the mean and upper CI values for each link
