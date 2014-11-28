@@ -24,10 +24,21 @@ PACo <- function(D, nperm=1000, seed=NA, margin=1)
    if(!is.na(seed)) set.seed(seed)
    for(n in c(1:nperm))
    {
-      el <- subset(reshape2::melt(D$HP), value>0)
-      el[,margin] <- sample(el[,margin])
-      permuted_HP <- reshape2::acast(el, Var1~Var2, length)
-      permuted_HP[is.na(permuted_HP)] <- 0
+      if (Nlinks <= NROW(D$HP) | Nlinks <= NCOL(D$HP))
+      {
+         flag <- TRUE
+         while(flag)
+         {
+            permuted_HP <- t(apply(D$HP,1,sample)) # TODO Use permut
+            if(any(colSums(permuted_HP) == Nlinks)) flag <- TRUE
+         }
+      } else {
+         permuted_HP <- t(apply(D$HP, 1, sample))
+      }
+      #el <- subset(reshape2::melt(D$HP), value>0)
+      #el[,margin] <- sample(el[,margin])
+      #permuted_HP <- reshape2::acast(el, Var1~Var2, length)
+      #permuted_HP[is.na(permuted_HP)] <- 0
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)
       perm_proc_ss <- vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo)$ss
