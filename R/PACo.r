@@ -31,7 +31,7 @@ PACo <- function(D, nperm=1000, seed=NA, margin=1)
         el[,margin] <- sample(el[,margin])
         try_again <- (length(unique(paste(el$Var1, el$Var2))) != Nlinks)
       }
-      permuted_HP <- reshape2::acast(el, Var1~Var2, length)
+      permuted_HP <- reshape2::acast(rbind(subset(reshape2::melt(D$HP), value==0),el), Var1~Var2, length)
       permuted_HP <- permuted_HP[rownames(D$HP),colnames(D$HP)]
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)
