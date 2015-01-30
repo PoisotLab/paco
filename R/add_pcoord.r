@@ -49,8 +49,8 @@ coordpcoa <-function (D, correction = "none", rn = NULL)
     trace <- sum(diag(delta1))
     D.eig <- eigen(delta1)
     min.eig <- min(D.eig$values)
-    zero.eig <- which(abs(D.eig$values)- epsilon < epsilon)
-    D.eig$values[zero.eig] <- 0
+    D.eig$values <- vegan::eigenvals(D.eig)
+    zero.eig <- which(D.eig$values < epsilon)
     if (min.eig > -epsilon) {
         correct <- 1
         eig <- D.eig$values
@@ -107,9 +107,10 @@ coordpcoa <-function (D, correction = "none", rn = NULL)
             toto.cor <- eigen(mat.cor)
             trace.cor <- sum(diag(mat.cor))
             min.eig.cor <- min(toto.cor$values)
+            toto.cor$values <- vegan::eigenvals(toto.cor)
             zero.eig.cor <- which((toto.cor$values < epsilon) & 
                 (toto.cor$values > -epsilon))
-            toto.cor$values[zero.eig.cor] <- 0
+            
             if (min.eig.cor > -epsilon) {
                 eig.cor <- toto.cor$values
                 rel.eig.cor <- eig.cor[1:k]/trace.cor
