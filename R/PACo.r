@@ -2,7 +2,7 @@
 #' @param D a list with the data
 #' @param nperm Number of permutations
 #' @param seed Seed if results need to be reproduced
-#' @param margin The margin to sample (1 to sample rows, 2 to sample columns)
+#' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap"
 #' @export
 #' @examples 
 #' data(gopherlice)
@@ -13,7 +13,7 @@
 #' D <- add_pcoord(D)
 #' D <- PACo(D, nperm=10, seed=42)
 #' print(D$gof)
-PACo <- function(D, nperm=1000, seed=NA, margin=1)
+PACo <- function(D, nperm=1000, seed=NA, method="NA")
 {
    if(!("H_PCo" %in% names(D))) D <- add_pcoord(D)
    proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo)
@@ -24,14 +24,7 @@ PACo <- function(D, nperm=1000, seed=NA, margin=1)
    if(!is.na(seed)) set.seed(seed)
    for(n in c(1:nperm))
    {
-      el <- subset(reshape2::melt(D$HP), value>0)
-      try_again = TRUE
-      while(try_again)
-      {
-        el[,margin] <- sample(el[,margin])
-        try_again <- (length(unique(paste(el$Var1, el$Var2))) != Nlinks)
-      }
-      permuted_HP <- reshape2::acast(rbind(subset(reshape2::melt(D$HP), value==0),el), Var1~Var2, length)
+      permuted_HP <- commsimulator(D$HP, method)
       permuted_HP <- permuted_HP[rownames(D$HP),colnames(D$HP)]
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)
