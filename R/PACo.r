@@ -35,5 +35,6 @@ PACo <- function(D, nperm=1000, seed=NA, method="r0")
    pvalue <- pvalue / nperm
    D$proc <- proc
    D$gof <- list(p=pvalue, ss=m2ss, n=nperm)
+   D$method <- method
    return(D)
 }
