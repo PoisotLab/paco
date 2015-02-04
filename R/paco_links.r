@@ -1,7 +1,7 @@
 #' Contribution of individual links
 #' @param D A list returned by proc_analysis
 #' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
-#' @param .progress name of the progress bar to use see \code{\link[plyr]{create_progress_bar}}. Options inlcude "text" and "tk". It only works when \code{parallel = FALSE}
+#' @param .progress name of the progress bar to use, see \code{\link[plyr]{create_progress_bar}}. Options include "text" and "tk". It only works when \code{.parallel = FALSE}
 #' @param ... Additional arguments to be passed to PACo
 #' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
