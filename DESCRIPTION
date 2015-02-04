@@ -12,6 +12,8 @@ Imports:
     vegan,
     plyr,
     reshape2
+Suggests:
+    foreach
 Description: Performs procustes analysis of cophylogenies
 License: file LICENSE
 URL: http://www.uv.es/cophylpaco/
