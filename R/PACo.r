@@ -2,7 +2,7 @@
 #' @param D a list with the data
 #' @param nperm Number of permutations
 #' @param seed Seed if results need to be reproduced
-#' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00"
+#' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details
 #' @export
 #' @examples 
 #' data(gopherlice)
@@ -23,9 +23,12 @@ PACo <- function(D, nperm=1000, seed=NA, method="r0")
    m2ss <- proc$ss
    pvalue <- 0
    if(!is.na(seed)) set.seed(seed)
+   # Create randomised matrices
+   null_model <- vegan::nullmodel (D$HP, method)
+   randomised_matrices <- simulate (null_model, nsim = nperm)
    for(n in c(1:nperm))
    {
-      permuted_HP <- vegan::commsimulator(D$HP, method)
+      permuted_HP <- randomised_matrices[, , n]
       permuted_HP <- permuted_HP[rownames(D$HP),colnames(D$HP)]
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)
