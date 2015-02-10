@@ -1,8 +1,8 @@
 #' paco
 #' @param D A list with objects H, P, and HP, returned by prepare_paco_data
 #' @return The input list with added objects for the principal coordinates of the objects
-#' @export
-#' @examples 
+#' @examples
+#' @notes Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
 #' data(gopherlice)
 #' library(ape)
 #' gdist <- cophenetic(gophertree)
