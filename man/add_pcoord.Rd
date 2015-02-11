@@ -17,6 +17,8 @@ paco
 }
 \note{
 Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
+}
+\examples{
 data(gopherlice)
 library(ape)
 gdist <- cophenetic(gophertree)
