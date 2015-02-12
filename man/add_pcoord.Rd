@@ -15,7 +15,8 @@ The input list with added objects for the principal coordinates of the objects
 \description{
 paco
 }
-\examples{
+\note{
+Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
 data(gopherlice)
 library(ape)
 gdist <- cophenetic(gophertree)

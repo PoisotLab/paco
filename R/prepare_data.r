@@ -1,4 +1,4 @@
-#' Prepare the data
+#' Prepare the datapoll
 #' Simple wrapper to make sure that the matrices are sorted accordingly
 #' @param H Host distance matrix 
 #' @param P Parasite distance matrix 
@@ -13,10 +13,11 @@
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
 prepare_paco_data <- function(H, P, HP)
 {
-   if(NROW(H) != NCOL(H)) stop("H should be a square matrix")
-   if(NROW(P) != NCOL(P)) stop("P should be a square matrix")
-   if(NROW(H) != NROW(HP))
-   {
+   if(NROW(H) != NCOL(H))
+      stop("H should be a square matrix")
+   if(NROW(P) != NCOL(P))
+      stop("P should be a square matrix")
+   if(NROW(H) != NROW(HP)){
       warning("The HP matrix should have hosts in rows. It has been translated.")
       HP <- t(HP)
    }
