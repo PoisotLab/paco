@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepare_data.r
 \name{prepare_paco_data}
 \alias{prepare_paco_data}
-\title{Prepare the datapoll
+\title{Prepare the data
 Simple wrapper to make sure that the matrices are sorted accordingly}
 \usage{
 prepare_paco_data(H, P, HP)
@@ -18,7 +18,7 @@ prepare_paco_data(H, P, HP)
 A list with objects H, P, HP
 }
 \description{
-Prepare the datapoll
+Prepare the data
 Simple wrapper to make sure that the matrices are sorted accordingly
 }
 \examples{
