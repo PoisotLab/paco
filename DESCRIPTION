@@ -3,7 +3,8 @@ Version: 0.1.1
 Date: 2014-09-16
 Title: Procrustes application to cophylogenetic analysis
 Author: Juan Antonio Balbuena <ja.balbuena@uv.es>, Timothee Poisot
-    <t.poisot@gmail.com>, Matthew Hutchinson <matthewhutchinson15@gmail.com>
+    <t.poisot@gmail.com>, Matthew Hutchinson <matthewhutchinson15@gmail.com>,
+    Fernando Cagua <fernando@cagua.co>
 Maintainer: Timothee Poisot <t.poisot@gmail.com>
 Depends:
     R (>= 3.0.0)
@@ -12,6 +13,8 @@ Imports:
     vegan,
     plyr,
     reshape2
+Suggests:
+    foreach
 Description: Performs procustes analysis of cophylogenies
 License: file LICENSE
 URL: http://www.uv.es/cophylpaco/
