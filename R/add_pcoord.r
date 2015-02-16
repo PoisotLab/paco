@@ -13,7 +13,7 @@
 
 add_pcoord <- function(D)
 { 
-   HP_bin <- which(D$HP > 0, arr.ind=TRUE)
+   HP_bin <- which(!is.na(D$HP), arr.ind=TRUE)
    H_PCo <- coordpcoa(D$H, correction="cailliez")$vectors #Performs PCo of Host distances 
    P_PCo <- coordpcoa(D$P, correction="cailliez")$vectors #Performs PCo of Parasite distances
    D$H_PCo <- H_PCo[HP_bin[,1],] #Adjust Host PCo vectors 
