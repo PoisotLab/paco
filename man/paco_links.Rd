@@ -14,6 +14,8 @@ paco_links(D, .parallel = FALSE, .progress = "none", ...)
 \item{.progress}{name of the progress bar to use, see \code{\link[plyr]{create_progress_bar}}. Options include "text" and "tk". It only works when \code{.parallel = FALSE}}
 
 \item{...}{Additional arguments to be passed to PACo}
+
+\item{symmetric}{Use symmetric Procrustes statistic}
 }
 \value{
 A list with added object jacknife, containing the mean and upper CI values for each link

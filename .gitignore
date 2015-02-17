@@ -11,3 +11,9 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
+*.Rbuildignore
+.Rproj.user
+
+# testing files
+testing/*
