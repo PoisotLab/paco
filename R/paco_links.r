@@ -44,11 +44,11 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
 }
 
 #PACo setting the ith link = 0
-single_paco_link <- function (D, HP.ones, i,...) {
+single_paco_link <- function (D, HP.ones, i, ...) {
   HP_ind <- D$HP
   HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
-  PACo.ind <- PACo(list(H=D$H, P=D$P, HP=HP_ind), method=D$method, ...)
-  Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo) 
+  PACo.ind <- PACo(list(H=D$H, P=D$P, HP=HP_ind), method=D$method, symmetric = D$symmetric, ...)
+  Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo, symmetric = D$symmetric) 
   res.Proc.ind <- c(residuals(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
 }
