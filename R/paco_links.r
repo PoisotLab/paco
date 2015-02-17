@@ -3,7 +3,6 @@
 #' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
 #' @param .progress name of the progress bar to use, see \code{\link[plyr]{create_progress_bar}}. Options include "text" and "tk". It only works when \code{.parallel = FALSE}
 #' @param ... Additional arguments to be passed to PACo
-#' @param symmetric Use symmetric Procrustes statistic 
 #' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
 paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
