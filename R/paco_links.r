@@ -8,17 +8,17 @@
 paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
 {
    HP.ones <- which(D$HP > 0, arr.ind=TRUE)
-   SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
    colnames(SQres.jackn) <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
    t.critical = qt(0.975,sum(D$HP)-1) #Needed to compute 95% confidence intervals.
    nlinks <- sum(D$HP)
    
    # In parallel
    if (.parallel & exists ("foreach")) {
-     foreach (i=1:nlinks, .combine = rbind) %dopar% single_paco_link (D, HP.ones, i, ...)
+     SQres.jackn <- foreach (i=1:nlinks, .combine = rbind) %dopar% single_paco_link (D, HP.ones, i, ...)
    } else {
    # In sequence 
      if (.parallel & !exists ("foreach")) warning ("No parallel backend registered. Executing sequentially instead.")
+     SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
      pb <- plyr::create_progress_bar (.progress)
      pb$init (nlinks)
      for(i in c(1:nlinks)) 
