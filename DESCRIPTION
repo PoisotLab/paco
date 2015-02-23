@@ -10,7 +10,7 @@ Depends:
     R (>= 3.0.0)
 Imports:
     ape,
-    vegan,
+    vegan (>= 2.2-0),
     plyr,
     reshape2
 Suggests:
