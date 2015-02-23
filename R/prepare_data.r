@@ -1,4 +1,4 @@
-#' Prepare the datapoll
+#' Prepare the data
 #' Simple wrapper to make sure that the matrices are sorted accordingly
 #' @param H Host distance matrix 
 #' @param P Parasite distance matrix 

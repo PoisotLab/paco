@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_pcoord.r
 \name{add_pcoord}
 \alias{add_pcoord}
-\title{paco}
+\title{Principle coordinate analysis of phylogenies}
 \usage{
 add_pcoord(D)
 }
@@ -13,7 +13,7 @@ add_pcoord(D)
 The input list with added objects for the principal coordinates of the objects
 }
 \description{
-paco
+Principle coordinate analysis of phylogenies
 }
 \note{
 Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
