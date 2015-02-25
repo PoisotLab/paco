@@ -13,7 +13,7 @@ PACo(D, nperm = 1000, seed = NA, method = "r0")
 
 \item{seed}{Seed if results need to be reproduced}
 
-\item{method}{The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00"}
+\item{method}{The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details}
 }
 \description{
 Performs PACo/procustes analysis
