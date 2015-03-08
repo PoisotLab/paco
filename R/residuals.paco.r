@@ -1,9 +1,9 @@
-#' Gets procrustes residuals from a paco object
+#' Get procrustes residuals from a paco object
 #' @param D a list with the data
 #' @param type Wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
 #' @export
 
-residuals_paco <- function (D, type = "interaction") {
+residuals.paco <- function (D, type = "interaction") {
   
   type <- match.arg(type, c("matrix", "interaction"))
   
