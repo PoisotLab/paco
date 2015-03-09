@@ -19,6 +19,7 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
    } else {
    # In sequence 
      if (.parallel & !exists ("foreach")) warning ("No parallel backend registered. Executing sequentially instead.")
+     SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
      pb <- plyr::create_progress_bar (.progress)
      pb$init (nlinks)
      for(i in c(1:nlinks)) 
