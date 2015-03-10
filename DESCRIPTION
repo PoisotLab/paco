@@ -6,15 +6,16 @@ Author: Juan Antonio Balbuena <ja.balbuena@uv.es>, Timothee Poisot
     <t.poisot@gmail.com>, Matthew Hutchinson <matthewhutchinson15@gmail.com>,
     Fernando Cagua <fernando@cagua.co>
 Maintainer: Timothee Poisot <t.poisot@gmail.com>
-Depends:
+Depends: 
     R (>= 3.0.0)
-Imports:
+Imports: 
     ape,
     vegan (>= 2.2-0),
     plyr,
     reshape2
-Suggests:
-    foreach
+Suggests: 
+    foreach,
+    testthat
 Description: Performs procustes analysis of cophylogenies
 License: file LICENSE
 URL: http://www.uv.es/cophylpaco/
