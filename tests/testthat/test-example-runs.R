@@ -18,3 +18,5 @@ test_that ("paco example works as expected", {
   expect_is (run_example (gdist, ldist, gl_links)$gof$n, "numeric")
   
 })
+
+
