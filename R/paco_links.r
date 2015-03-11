@@ -15,6 +15,8 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
    
    # If the user wants a progress bar load plyr
    if (.progress != "none") require (plyr)
+   # Otherwise progress bar none is borrowed from plyr without loading the package
+   if (.progress == "none") progress_none <- function () plyr::progress_none ()
    
    # In parallel
    if (.parallel & exists ("foreach")) {
@@ -55,6 +57,3 @@ single_paco_link <- function (D, HP.ones, i,...) {
   res.Proc.ind <- c(residuals(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
 }
-
-# Progress bar none is borrowed from plyr
-progress_none <- plyr::progress_none ()
