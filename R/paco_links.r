@@ -52,3 +52,11 @@ single_paco_link <- function (D, HP.ones, i,...) {
   res.Proc.ind <- c(residuals(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
 }
+
+progress_none <- function() {
+  list(
+    init = function(x) {},
+    step = function()  {},
+    term = function()  {}
+  )
+}
