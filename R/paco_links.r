@@ -13,6 +13,11 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
    t.critical = qt(0.975,sum(D$HP)-1) #Needed to compute 95% confidence intervals.
    nlinks <- sum(D$HP)
    
+   # If the user wants a progress bar load plyr
+   if (.progress != "none") require (plyr)
+   # Otherwise progress bar none is borrowed from plyr without loading the package
+   if (.progress == "none") progress_none <- function () plyr::progress_none ()
+   
    # In parallel
    if (.parallel & exists ("foreach")) {
      foreach (i=1:nlinks, .combine = rbind) %dopar% single_paco_link (D, HP.ones, i, ...)

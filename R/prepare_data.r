@@ -32,5 +32,7 @@ prepare_paco_data <- function(H, P, HP)
    H <- H[rownames(HP),rownames(HP)]
    P <- P[colnames(HP),colnames(HP)]
    HP[HP>0] <- 1
-   return(list(H=H, P=P, HP=HP))
+   D <- list(H=H, P=P, HP=HP)
+   class(D) <- "paco"
+   return(D)
 }
