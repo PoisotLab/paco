@@ -4,7 +4,7 @@ run_example <- function (H, P, HP) {
   D <- prepare_paco_data(H, P, HP)
   D <- add_pcoord(D)
   D <- PACo(D, nperm = 10, seed = 42, method="r0")
-  D <- paco_links (D, nperm = 10, seed = 42)
+  D <- paco_links (D)
 }
 
 data(gopherlice)
