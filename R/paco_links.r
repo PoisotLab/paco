@@ -2,10 +2,9 @@
 #' @param D A list returned by proc_analysis
 #' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
 #' @param .progress name of the progress bar to use, see \code{\link[plyr]{create_progress_bar}}. Options include "text" and "tk". It only works when \code{.parallel = FALSE}
-#' @param ... Additional arguments to be passed to PACo
 #' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
-paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
+paco_links <- function(D, .parallel = FALSE, .progress = "none")
 {
    HP.ones <- which(D$HP > 0, arr.ind=TRUE)
    SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
@@ -20,7 +19,7 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
    
    # In parallel
    if (.parallel & exists ("foreach")) {
-     foreach (i=1:nlinks, .combine = rbind) %dopar% single_paco_link (D, HP.ones, i, ...)
+     foreach (i=1:nlinks, .combine = rbind) %dopar% single_paco_link (D, HP.ones, i)
    } else {
    # In sequence 
      if (.parallel & !exists ("foreach")) warning ("No parallel backend registered. Executing sequentially instead.")
@@ -28,7 +27,7 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
      pb$init (nlinks)
      for(i in c(1:nlinks)) 
      {
-       res.Proc.ind <- single_paco_link (D, HP.ones, i, ...)
+       res.Proc.ind <- single_paco_link (D, HP.ones, i)
        SQres.jackn[i, ] <- res.Proc.ind   #Append residuals to matrix of jackknifed squared residuals
        pb$step ()
      } 
@@ -49,10 +48,10 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none", ...)
 }
 
 #PACo setting the ith link = 0
-single_paco_link <- function (D, HP.ones, i,...) {
+single_paco_link <- function (D, HP.ones, i) {
   HP_ind <- D$HP
   HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
-  PACo.ind <- PACo(list(H=D$H, P=D$P, HP=HP_ind), method=D$method, ...)
+  PACo.ind <- add_pcoord(list(H=D$H, P=D$P, HP=HP_ind))
   Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo) 
   res.Proc.ind <- c(residuals(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
