@@ -4,14 +4,13 @@
 #' @export
 
 residuals.paco <- function (D, type = "interaction") {
-  
   type <- match.arg(type, c("matrix", "interaction"))
-  
+
   if (!exists ("proc", D)) stop ("Procrustes object 'proc' not found")
-  
+
   distance <- D$proc$X - D$proc$Yrot
-  rownames (distance) <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
-  
+  rownames(distance) <- paste(rownames(D$proc$X), rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
+
   if (type == "matrix") {
     return (distance)
   } else if (type == "interaction") {

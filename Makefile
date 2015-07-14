@@ -7,7 +7,7 @@ cran/paco:
 test: cran/paco doc
 	mkdir -p cran/paco
 	cp -r * cran/paco 2>/dev/null; true
-	rm -r cran/paco/{cran,inst,tests}
+	rm -r cran/paco/{cran,tests}
 	rm cran/paco/Makefile
 	cd cran; R CMD check paco
 
