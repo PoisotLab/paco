@@ -1,15 +1,16 @@
 #' Get procrustes residuals from a paco object
-#' @param D a list with the data
-#' @param type Wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
+#' @param object a list with the data
+#' @description type Wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
 #' @export
 
-residuals.paco <- function (D, type = "interaction") {
+residuals.paco <- function (object, ...) {
+  if(missing(type)) stop("Please specify type")
   type <- match.arg(type, c("matrix", "interaction"))
 
-  if (!exists ("proc", D)) stop ("Procrustes object 'proc' not found")
+  if (!exists("proc", object)) stop ("Procrustes object 'proc' not found")
 
-  distance <- D$proc$X - D$proc$Yrot
-  rownames(distance) <- paste(rownames(D$proc$X), rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
+  distance <- object$proc$X - object$proc$Yrot
+  rownames(distance) <- paste(rownames(object$proc$X), rownames(object$proc$Yrot), sep="-") #colnames identify the H-P link
 
   if (type == "matrix") {
     return (distance)
