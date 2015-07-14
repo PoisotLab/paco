@@ -4,12 +4,12 @@
 \alias{residuals.paco}
 \title{Get procrustes residuals from a paco object}
 \usage{
-\method{residuals}{paco}(D, type = "interaction")
+\method{residuals}{paco}(object, ...)
 }
 \arguments{
-\item{D}{a list with the data}
+\item{object}{a list with the data}
 
-\item{type}{Wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired}
+\item{...}{Used for type, wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired}
 }
 \description{
 Get procrustes residuals from a paco object

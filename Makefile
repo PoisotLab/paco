@@ -9,7 +9,7 @@ test: cran/paco doc
 	cp -r * cran/paco 2>/dev/null; true
 	rm -r cran/paco/{cran,tests}
 	rm cran/paco/Makefile
-	cd cran; R CMD check paco
+	cd cran; R CMD check --as-cran paco
 
 paco.tar.gz:
 	cd cran; tar -zcvf $@ paco

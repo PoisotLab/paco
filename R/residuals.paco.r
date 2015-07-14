@@ -1,6 +1,6 @@
 #' Get procrustes residuals from a paco object
 #' @param object a list with the data
-#' @description type Wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
+#' @param ... Used for type, wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
 #' @export
 
 residuals.paco <- function (object, ...) {
