@@ -20,7 +20,7 @@ Performs PACo/procustes analysis
 }
 \examples{
 data(gopherlice)
-library(ape)
+require(ape)
 gdist <- cophenetic(gophertree)
 ldist <- cophenetic(licetree)
 D <- prepare_paco_data(gdist, ldist, gl_links)

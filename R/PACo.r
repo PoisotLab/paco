@@ -4,9 +4,9 @@
 #' @param seed Seed if results need to be reproduced
 #' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details
 #' @export
-#' @examples 
+#' @examples
 #' data(gopherlice)
-#' library(ape)
+#' require(ape)
 #' gdist <- cophenetic(gophertree)
 #' ldist <- cophenetic(licetree)
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
