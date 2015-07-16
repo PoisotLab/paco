@@ -1,5 +1,5 @@
 Package: paco
-Version: 0.2.0
+Version: 0.2.1
 Date: 2015-07-13
 Title: Procrustes Application to Cophylogenetic Analysis
 Description: Procrustes analyses to infer co-phylogenetic
@@ -12,9 +12,9 @@ Depends:
   R (>= 3.0.0)
 Imports:
   vegan (>= 2.2-0),
-  plyr,
-  foreach
+  plyr
 Suggests:
-  ape
+  ape,
+  doMC
 License: MIT + file LICENSE
 URL: http://www.uv.es/cophylpaco/
