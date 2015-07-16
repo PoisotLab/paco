@@ -16,6 +16,7 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none")
    if (.progress == "none") progress_none <- function() plyr::progress_none()
 
    # In parallel
+   requireNamespace("foreach")
    if (.parallel & exists("foreach")) {
      foreach::foreach(i=1:nlinks, .combine = rbind) %dopar% single_paco_link (D, HP.ones, i)
    } else {
@@ -33,13 +34,13 @@ paco_links <- function(D, .parallel = FALSE, .progress = "none")
    }
 
    SQres.jackn <- SQres.jackn^2 #Jackknifed residuals are squared
-   SQres <- (residuals(D$proc))^2 # Vector of original square residuals
+   SQres <- (stats::residuals(D$proc))^2 # Vector of original square residuals
    #jackknife calculations:
    SQres.jackn <- SQres.jackn*(-(sum(D$HP)-1))
    SQres <- SQres*sum(D$HP)
    SQres.jackn <- t(apply(SQres.jackn, 1, "+", SQres)) #apply jackknife function to matrix
    phi.mean <- apply(SQres.jackn, 2, mean, na.rm = TRUE) #mean jackknife estimate per link
-   phi.UCI <- apply(SQres.jackn, 2, sd, na.rm = TRUE) #standard deviation of estimates
+   phi.UCI <- apply(SQres.jackn, 2, stats::sd, na.rm = TRUE) #standard deviation of estimates
    phi.UCI <- phi.mean + t.critical * phi.UCI/sqrt(sum(D$HP))
    D$jackknife <- list(mean = phi.mean, upper = phi.UCI)
    return(D)
