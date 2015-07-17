@@ -25,7 +25,7 @@ PACo <- function(D, nperm=1000, seed=NA, method="r0")
    if(!is.na(seed)) set.seed(seed)
    # Create randomised matrices
    null_model <- vegan::nullmodel (D$HP, method)
-   randomised_matrices <- simulate (null_model, nsim = nperm)
+   randomised_matrices <- stats::simulate (null_model, nsim = nperm)
    for(n in c(1:nperm))
    {
       permuted_HP <- randomised_matrices[, , n]
