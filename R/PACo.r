@@ -5,9 +5,9 @@
 #' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details
 #' @param symmetric Use symmetric Procrustes statistic 
 #' @export
-#' @examples 
+#' @examples
 #' data(gopherlice)
-#' library(ape)
+#' require(ape)
 #' gdist <- cophenetic(gophertree)
 #' ldist <- cophenetic(licetree)
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
@@ -26,7 +26,7 @@ PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE)
    if(!is.na(seed)) set.seed(seed)
    # Create randomised matrices
    null_model <- vegan::nullmodel (D$HP, method)
-   randomised_matrices <- simulate (null_model, nsim = nperm)
+   randomised_matrices <- stats::simulate (null_model, nsim = nperm)
    for(n in c(1:nperm))
    {
       permuted_HP <- randomised_matrices[, , n]
