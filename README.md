@@ -1,5 +1,8 @@
 # PACo
 
+[![Build Status](https://travis-ci.org/PoisotLab/paco.svg?branch=master)](https://travis-ci.org/PoisotLab/paco)
+[![Coverage Status](https://coveralls.io/repos/PoisotLab/paco/badge.svg)](https://coveralls.io/r/PoisotLab/paco)
+
 This package implements the functions neeeded to perform `PACo` (Balbuena
 et al. 2013) in `R`.
 
