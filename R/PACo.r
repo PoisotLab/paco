@@ -3,6 +3,7 @@
 #' @param nperm Number of permutations
 #' @param seed Seed if results need to be reproduced
 #' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details
+#' @param symmetric Use symmetric Procrustes statistic 
 #' @export
 #' @examples
 #' data(gopherlice)
@@ -13,11 +14,11 @@
 #' D <- add_pcoord(D)
 #' D <- PACo(D, nperm=10, seed=42, method="r0")
 #' print(D$gof)
-PACo <- function(D, nperm=1000, seed=NA, method="r0")
+PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE)
 {
    method <- match.arg(method, c("r0", "r1", "r2", "r00", "c0", "swap", "tswap", "backtrack", "quasiswap"))
    if(!("H_PCo" %in% names(D))) D <- add_pcoord(D)
-   proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo)
+   proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo, symmetric= symmetric)
    Nlinks <- sum(D$HP)
    ## Goodness of fit
    m2ss <- proc$ss
@@ -32,12 +33,13 @@ PACo <- function(D, nperm=1000, seed=NA, method="r0")
       permuted_HP <- permuted_HP[rownames(D$HP),colnames(D$HP)]
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D)
-      perm_proc_ss <- vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo)$ss
+      perm_proc_ss <- vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo, symmetric= symmetric)$ss
       if(perm_proc_ss <= m2ss) pvalue <- pvalue + 1
    }
    pvalue <- pvalue / nperm
    D$proc <- proc
    D$gof <- list(p=pvalue, ss=m2ss, n=nperm)
    D$method <- method
+   D$symmetric <- symmetric
    return(D)
 }

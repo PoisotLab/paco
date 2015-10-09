@@ -12,6 +12,7 @@ paco_links <- function(D, .parallel = FALSE)
    nlinks <- sum(D$HP)
 
    # In parallel
+
    plyr::adply(1:nlinks, 1, function(x) single_paco_link(D, HP.ones, x), .parallel=.parallel)
 
    SQres.jackn <- SQres.jackn^2 #Jackknifed residuals are squared
