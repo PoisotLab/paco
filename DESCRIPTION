@@ -1,10 +1,10 @@
 Package: paco
-Version: 0.2.1
+Version: 0.2.2
 Date: 2015-07-13
 Title: Procrustes Application to Cophylogenetic Analysis
 Description: Procrustes analyses to infer co-phylogenetic
   matching between pairs of (ultrametric) phylogenetic trees.
-Author: Juan Antonio Balbuena <ja.balbuena@uv.es>, Timothee Poisot
+Author: Juan Antonio Balbuena <j.a.balbuena@uv.es>, Timothee Poisot
   <tim@poisotlab.io>, Matthew Hutchinson <matthewhutchinson15@gmail.com>,
   Fernando Cagua <fernando@cagua.co>
 Maintainer: Timothee Poisot <tim@poisotlab.io>
