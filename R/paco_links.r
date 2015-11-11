@@ -1,9 +1,10 @@
 #' Contribution of individual links
 #' @param D A list returned by proc_analysis
 #' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
+#' @param correction Choose the method with which to correct negative eigenvalues in the internal call of add_pcoord ('none', cailliez', 'lingoes'). Default is 'none'. 
 #' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
-paco_links <- function(D, .parallel = FALSE)
+paco_links <- function(D, .parallel = FALSE, correction='none')
 {
    HP.ones <- which(D$HP > 0, arr.ind=TRUE)
    SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
@@ -11,9 +12,17 @@ paco_links <- function(D, .parallel = FALSE)
    t.critical = stats::qt(0.975,sum(D$HP)-1) #Needed to compute 95% confidence intervals.
    nlinks <- sum(D$HP)
 
-   # In parallel
-
-   plyr::adply(1:nlinks, 1, function(x) single_paco_link(D, HP.ones, x), .parallel=.parallel)
+  #if .parallel is TRUE
+  if(.parallel==TRUE){
+  SQres.jackn <- plyr::adply(1:nlinks, 1, function(x) single_paco_link(D, HP.ones, x, correction), .parallel=.parallel)
+} else{
+  #if .parallel is FALSE
+  for(i in c(1:nlinks))
+  {
+  res.Proc.ind <- single_paco_link (D, HP.ones, i, correction)
+  SQres.jackn[i, ] <- res.Proc.ind
+  }
+}
 
    SQres.jackn <- SQres.jackn^2 #Jackknifed residuals are squared
    SQres <- (stats::residuals(D$proc))^2 # Vector of original square residuals
@@ -29,10 +38,10 @@ paco_links <- function(D, .parallel = FALSE)
 }
 
 #PACo setting the ith link = 0
-single_paco_link <- function (D, HP.ones, i) {
+single_paco_link <- function (D, HP.ones, i, correction) {
   HP_ind <- D$HP
   HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
-  PACo.ind <- add_pcoord(list(H=D$H, P=D$P, HP=HP_ind))
+  PACo.ind <- add_pcoord(list(H=D$H, P=D$P, HP=HP_ind), correction=correction)
   Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo)
   res.Proc.ind <- c(residuals.paco(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
