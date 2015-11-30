@@ -1,8 +1,17 @@
 #' Get procrustes residuals from a paco object
 #' @param object a list with the data
-#' @param type wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
+#' @param type whether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
+#' @return a data frame of raw residuals from the Procrustean superimposition
 #' @export
-
+#' @examples
+#' data(gopherlice)
+#' library(ape)
+#' gdist <- cophenetic(gophertree)
+#' ldist <- cophenetic(licetree)
+#' D <- prepare_paco_data(gdist, ldist, gl_links)
+#' D <- add_pcoord(D, correction='cailliez')
+#' D <- PACo(D, nperm=100, seed=42, method='r0', correction='cailliez')
+#' residuals.paco(D$proc)
 residuals.paco <- function (object, type = "interaction") {
   type <- match.arg(type, c("matrix", "interaction"))
 
