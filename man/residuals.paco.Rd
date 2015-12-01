@@ -4,14 +4,27 @@
 \alias{residuals.paco}
 \title{Get procrustes residuals from a paco object}
 \usage{
-\method{residuals}{paco}(object, ...)
+\method{residuals}{paco}(object, type = "interaction")
 }
 \arguments{
 \item{object}{a list with the data}
 
-\item{...}{Used for type, wether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired}
+\item{type}{whether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired}
+}
+\value{
+a data frame of raw residuals from the Procrustean superimposition
 }
 \description{
 Get procrustes residuals from a paco object
+}
+\examples{
+data(gopherlice)
+library(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+D <- add_pcoord(D, correction='cailliez')
+D <- PACo(D, nperm=100, seed=42, method='r0', correction='cailliez')
+residuals.paco(D$proc)
 }
 
