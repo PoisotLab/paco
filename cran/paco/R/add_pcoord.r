@@ -1,6 +1,6 @@
 #' Principle coordinate analysis of phylogenies
 #' @param D A list with objects H, P, and HP, returned by prepare_paco_data
-#' @param Correction Choose the method with which to correct negative eigenvalues ('none', cailliez', 'lingoes'). Default is 'none'.
+#' @param correction Choose the method with which to correct negative eigenvalues ('none', cailliez', 'lingoes'). Default is 'none'.
 #' @return The input list with added objects for the principal coordinates of the objects
 #' @note Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
 #' @export
