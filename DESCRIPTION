@@ -1,6 +1,6 @@
 Package: paco
-Version: 0.2.3
-Date: 2015-11-10
+Version: 0.2.4
+Date: 2015-11-30
 Title: Procrustes Application to Cophylogenetic Analysis
 Description: Procrustes analyses to infer co-phylogenetic
     matching between pairs of (ultrametric) phylogenetic trees.
