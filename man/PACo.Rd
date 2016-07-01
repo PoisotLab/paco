@@ -4,8 +4,7 @@
 \alias{PACo}
 \title{Performs PACo/procustes analysis}
 \usage{
-PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
-  correction = "none")
+PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE)
 }
 \arguments{
 \item{D}{a list with the data}
@@ -17,8 +16,6 @@ PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
 \item{method}{The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details}
 
 \item{symmetric}{Use symmetric Procrustes statistic}
-
-\item{correction}{Choose the method with which to correct negative eigenvalues in the internal call of add_pcoord ('none', cailliez', 'lingoes'). Default is 'none'.}
 }
 \description{
 Performs PACo/procustes analysis

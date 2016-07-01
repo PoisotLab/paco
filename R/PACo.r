@@ -4,7 +4,6 @@
 #' @param seed Seed if results need to be reproduced
 #' @param method The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details
 #' @param symmetric Use symmetric Procrustes statistic 
-#' @param correction Choose the method with which to correct negative eigenvalues in the internal call of add_pcoord ('none', cailliez', 'lingoes'). Default is 'none'. 
 #' @export
 #' @examples
 #' data(gopherlice)
@@ -15,10 +14,11 @@
 #' D <- add_pcoord(D)
 #' D <- PACo(D, nperm=10, seed=42, method="r0", correction='cailliez')
 #' print(D$gof)
-PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE, correction='none')
+PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE)
 {
+   correction <- D$correction
    method <- match.arg(method, c("r0", "r1", "r2", "r00", "c0", "swap", "tswap", "backtrack", "quasiswap"))
-   if(!("H_PCo" %in% names(D))) D <- add_pcoord(D)
+   if(!("H_PCo" %in% names(D))) D <- add_pcoord(D, correction=correction)
    proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo, symmetric= symmetric)
    Nlinks <- sum(D$HP)
    ## Goodness of fit
