@@ -18,5 +18,6 @@ H_PCo <- coordpcoa(D$H, correction)$vectors #Performs PCo of Host distances
 P_PCo <- coordpcoa(D$P, correction)$vectors #Performs PCo of Parasite distances
 D$H_PCo <- H_PCo[HP_bin[,1],] #Adjust Host PCo vectors
 D$P_PCo <- P_PCo[HP_bin[,2],] #Adjust Parasite PCo vectors
+D$correction <- correction
 return(D)
 }

@@ -1,11 +1,11 @@
 #' Contribution of individual links
 #' @param D A list returned by proc_analysis
 #' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
-#' @param correction Choose the method with which to correct negative eigenvalues in the internal call of add_pcoord ('none', cailliez', 'lingoes'). Default is 'none'. 
 #' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
-paco_links <- function(D, .parallel = FALSE, correction='none')
+paco_links <- function(D, .parallel = FALSE)
 {
+   correction <- D$correction
    HP.ones <- which(D$HP > 0, arr.ind=TRUE)
    SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
    colnames(SQres.jackn) <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link

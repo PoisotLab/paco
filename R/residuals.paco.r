@@ -12,7 +12,7 @@
 #' D <- add_pcoord(D, correction='cailliez')
 #' D <- PACo(D, nperm=100, seed=42, method='r0', correction='cailliez')
 #' residuals.paco(D$proc)
-residuals.paco <- function (object, type = "interaction") {
+residuals_paco <- function (object, type = "interaction") {
   type <- match.arg(type, c("matrix", "interaction"))
 
   distance <- object$X - object$Yrot
