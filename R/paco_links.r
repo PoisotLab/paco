@@ -3,7 +3,7 @@
 #' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
 #' @return A list with added object jacknife, containing the mean and upper CI values for each link
 #' @export
-paco_links <- function(D, .parallel = FALSE)
+paco_links <- function(D, .parallel = FALSE, proc.warnings=TRUE)
 {
    correction <- D$correction
    HP.ones <- which(D$HP > 0, arr.ind=TRUE)
@@ -38,11 +38,15 @@ paco_links <- function(D, .parallel = FALSE)
 }
 
 #PACo setting the ith link = 0
-single_paco_link <- function (D, HP.ones, i, correction) {
+single_paco_link <- function (D, HP.ones, i, correction, proc.warnings) {
   HP_ind <- D$HP
   HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
   PACo.ind <- add_pcoord(list(H=D$H, P=D$P, HP=HP_ind), correction=correction)
-  Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo)
+  if(proc.warnings==TRUE){
+    Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo)
+  }else{
+      Proc.ind <- suppressWarnings(vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo))
+  }
   res.Proc.ind <- c(residuals_paco(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)
 }

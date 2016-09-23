@@ -14,12 +14,16 @@
 #' D <- add_pcoord(D)
 #' D <- PACo(D, nperm=10, seed=42, method="r0", correction='cailliez')
 #' print(D$gof)
-PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE)
+PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE, proc.warnings=TRUE)
 {
    correction <- D$correction
    method <- match.arg(method, c("r0", "r1", "r2", "r00", "c0", "swap", "tswap", "backtrack", "quasiswap"))
    if(!("H_PCo" %in% names(D))) D <- add_pcoord(D, correction=correction)
-   proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo, symmetric= symmetric)
+   if(proc.warnings==TRUE){
+      proc <- vegan::procrustes(X=D$H_PCo, Y=D$P_PCo, symmetric= symmetric)
+   }else{
+      proc <- suppressWarnings(vegan::procrustes(X=D$H_PCo, Y=D$P_PCo, symmetric= symmetric))
+   }
    Nlinks <- sum(D$HP)
    ## Goodness of fit
    m2ss <- proc$ss
@@ -34,7 +38,11 @@ PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE)
       permuted_HP <- permuted_HP[rownames(D$HP),colnames(D$HP)]
       perm_D <- list(H=D$H, P=D$P, HP=permuted_HP)
       perm_paco <- add_pcoord(perm_D, correction=correction)
-      perm_proc_ss <- vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo, symmetric= symmetric)$ss
+      if(proc.warnings==TRUE){
+         perm_proc_ss <- vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo, symmetric= symmetric)$ss
+      }else{
+         perm_proc_ss <- suppressWarnings(vegan::procrustes(X=perm_paco$H_PCo, Y=perm_paco$P_PCo, symmetric= symmetric)$ss)
+      }
       if(perm_proc_ss <= m2ss) pvalue <- pvalue + 1
    }
    pvalue <- pvalue / nperm
