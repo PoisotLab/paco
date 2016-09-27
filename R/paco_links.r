@@ -1,8 +1,21 @@
 #' Contribution of individual links
-#' @param D A list returned by proc_analysis
-#' @param .parallel if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach
-#' @return A list with added object jacknife, containing the mean and upper CI values for each link
+#'
+#' Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
+#' @param D A list of class `paco' as returned by paco::PACo. 
+#' @param .parallel If TRUE, calculate the jacknife contribution in parallel using the backend provided by foreach.
+#' @param proc.warnings As in PACo. If TRUE, any warnings produced by internal calls of paco::PACo will be available for the user to view. If FALSE, warnings are internally suppressed.
+#' @return The input list of class `paco' with the added object jacknife which containing the mean and upper CI values for each link.
 #' @export
+#' @examples
+#' data(gopherlice)
+#' require(ape)
+#' gdist <- cophenetic(gophertree)
+#' ldist <- cophenetic(licetree)
+#' D <- prepare_paco_data(gdist, ldist, gl_links)
+#' D <- add_pcoord(D)
+#' D <- PACo(D, nperm=10, seed=42, method="r0", correction='cailliez')
+#' D <- paco_links(D)
+
 paco_links <- function(D, .parallel = FALSE, proc.warnings=TRUE)
 {
    correction <- D$correction

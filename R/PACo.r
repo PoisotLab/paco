@@ -1,4 +1,6 @@
-#' Performs PACo analysis. Two sets of Principle Coordinates are superimposed by Procrustes superimposition. The sum of squared residuals of this superimposition give an indication of how congruent the two datasets are. For example, in a biological system the two sets of Principle Coordinates can be composed from the phylogenetic distance matrices of two interacting groups. The congruence measured by PACo indicates how concordant the two phylogenies are based on observed ecological interactions between them.
+#' Performs PACo analysis. 
+#'
+#' Two sets of Principle Coordinates are superimposed by Procrustes superimposition. The sum of squared residuals of this superimposition give an indication of how congruent the two datasets are. For example, in a biological system the two sets of Principle Coordinates can be composed from the phylogenetic distance matrices of two interacting groups. The congruence measured by PACo indicates how concordant the two phylogenies are based on observed ecological interactions between them.
 #' @param D A list of class `paco' as returned by paco::add_pcoord which includes Principle Coordinates for both phylogenetic distance matrices.
 #' @param nperm The number of permutations to run. Whereby in each permutation, the network is randomized following the method argument and phylogenetic congruence between phylogenies is reassessed.
 #' @param seed An integer with which to begin the randomizations. If the same seed is used the randomizations will be the same and results reproducible. If 'NA' a random seed is chosen.
@@ -6,7 +8,8 @@
 #' @param symmetric Logical. Whether or not to use the symmetric Procrustes statistic or not. When TRUE, the symmetric statistic is used. When FALSE, the asymmetric is used. A decision on which to use is based on whether one group is assumed to track the evolution of the other, or not.
 #' @param proc.warnings Logical. Make any warnings from the Procrustes superimposition callable. If TRUE, any warnings are viewable with the warnings() command. If FALSE, warnings are internally suppressed. Default is TRUE 
 #' @param shuffled Logical. Return the Procrustes sum of squared residuals for every permutation of the network. When TRUE, the Procrustes statistic of all permutations is returned as a vector. When FALSE, they are not returned.
-#' @value
+#' @return A `paco' object that now includes (alongside the Princeple Coordinates and input distance matrices) the PACo sum of sqaured residuals, a p-value for this statistic, and the PACo statistics for each randomisation of the network if shuffled=TRUE in the PACo call.
+#' @note Any call of PACo in which the distance matrices have differing dimensions (i.e., different numbers of tips of the two phylogenies) will produce warnings from the \code{vegan::procrustes) function. These warnings require no action by the user but are merely letting the user know that as the distance matrices had differing dimensions, their Principle Coordinates have differing numbers of columns. \code(vegan::procrustes) deals with this internally by adding columns of zeros to the smaller of the two until the are the same size.
 #' @export
 #' @examples
 #' data(gopherlice)
@@ -17,6 +20,7 @@
 #' D <- add_pcoord(D)
 #' D <- PACo(D, nperm=10, seed=42, method="r0", correction='cailliez')
 #' print(D$gof)
+
 PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE, proc.warnings=TRUE, shuffled=FALSE)
 {
    correction <- D$correction

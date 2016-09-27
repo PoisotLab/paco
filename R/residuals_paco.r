@@ -1,7 +1,9 @@
-#' Get procrustes residuals from a paco object
-#' @param object a list with the data
-#' @param type whether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired
-#' @return a data frame of raw residuals from the Procrustean superimposition
+#' Return Procrustes residuals from a paco object
+#'
+#' Takes the Procrustes object from vegan::procrustes of the global superimpostion and pulls out either the residual matrix of superimposition or the residual of each individual interaction (link between host and parasite). 
+#' @param object An obejct of class `procrustes' as returned from PACo (and internally the vegan::procrustes function). In a PACo output this is D$proc.
+#' @param type Whether the whole residual matrix (matrix) or the residuals per interaction (interaction) is desired.
+#' @return If type='interaction', returns a named vector of the Procrustes residuals where names are the interactions. If type='matrix', returns a matrix of residuals from Procrustes superimposition.
 #' @export
 #' @examples
 #' data(gopherlice)
