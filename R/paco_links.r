@@ -1,10 +1,10 @@
 #' Contribution of individual links
 #'
-#' Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
-#' @param D A list of class `paco' as returned by paco::PACo. 
-#' @param .parallel If TRUE, calculate the jacknife contribution in parallel using the backend provided by foreach.
-#' @param proc.warnings As in PACo. If TRUE, any warnings produced by internal calls of paco::PACo will be available for the user to view. If FALSE, warnings are internally suppressed.
-#' @return The input list of class `paco' with the added object jacknife which containing the mean and upper CI values for each link.
+#' Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
+#' @param D A list of class \code{paco} as returned by \code{paco::PACo}. 
+#' @param .parallel If TRUE, calculate the jackknife contribution in parallel using the backend provided by foreach.
+#' @param proc.warnings As in PACo. If \code{TRUE}, any warnings produced by internal calls of \code{paco::PACo} will be available for the user to view. If \code{FALSE}, warnings are internally suppressed.
+#' @return The input list of class \code{paco} with the added object jackknife which containing the mean and upper CI values for each link.
 #' @export
 #' @examples
 #' data(gopherlice)

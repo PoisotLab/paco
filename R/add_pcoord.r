@@ -1,10 +1,10 @@
-#' Principle Coordinate analysis of phylogenies
+#' Principle Coordinates analysis of phylogenetic distance matrices
 #'
-#' 
-#' @param D A list with objects H, P, and HP, as returned by prepare_paco_data.
-#' @param correction In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principle Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are ``cailliez'', ``lingoes'', and ``none''. The ``cailliez'' and ``lingoes'' corrections add a constant to the eigenvalues to make them non-negative. Default is 'none'. 
-#' @return The list that was input as the argument `D' with two new elements; the Principle Coordinates of the `host' phylogeny and the Principle Coordinates of the `parasite' phylogeny.
-#' @note To find the Principle Coordinates of each distance matrix, we internally use a function, coordpcoa, that is a modified version of ape::pcoa, using vegan::eigenvals.
+#' Translates the distance matrices of 'host' and 'parasite' phylogenies into Principle Coordinates, as needed for Procrustes superimposition.
+#' @param D A list with objects H, P, and HP, as returned by \code{paco::prepare_paco_data}.
+#' @param correction In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principle Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are "cailliez", "lingoes", and "none". The "cailliez" and "lingoes" corrections add a constant to the eigenvalues to make them non-negative. Default is "none". 
+#' @return The list that was input as the argument `D' with two new elements; the Principle Coordinates of the `host' distance matrix and the Principle Coordinates of the `parasite' distance matrix.
+#' @note To find the Principle Coordinates of each distance matrix, we internally use a function, \code{coordpcoa}, that is a modified version of \code{ape::pcoa}, using \code{vegan::eigenvals}.
 #' @export
 #' @examples
 #' data(gopherlice)
