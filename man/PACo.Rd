@@ -8,7 +8,7 @@ PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
   proc.warnings = TRUE, shuffled = FALSE)
 }
 \arguments{
-\item{D}{A list of class \code{paco} as returned by \code{paco::add_pcoord} which includes Principle Coordinates for both phylogenetic distance matrices.}
+\item{D}{A list of class \code{paco} as returned by \code{paco::add_pcoord} which includes Principal Coordinates for both phylogenetic distance matrices.}
 
 \item{nperm}{The number of permutations to run. In each permutation, the network is randomized following the \code{method} argument and phylogenetic congruence between phylogenies is reassessed.}
 
@@ -23,13 +23,13 @@ PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
 \item{shuffled}{Logical. Return the Procrustes sum of squared residuals for every permutation of the network. When \code{TRUE}, the Procrustes statistic of all permutations is returned as a vector. When \code{FALSE}, they are not returned.}
 }
 \value{
-A \code{paco} object that now includes (alongside the Principle Coordinates and input distance matrices) the PACo sum of sqaured residuals, a p-value for this statistic, and the PACo statistics for each randomisation of the network if shuffled=TRUE in the PACo call.
+A \code{paco} object that now includes (alongside the Principal Coordinates and input distance matrices) the PACo sum of sqaured residuals, a p-value for this statistic, and the PACo statistics for each randomisation of the network if shuffled=TRUE in the PACo call.
 }
 \description{
-Two sets of Principle Coordinates are superimposed by Procrustes superimposition. The sum of squared residuals of this superimposition give an indication of how congruent the two datasets are. For example, in a biological system the two sets of Principle Coordinates can be composed from the phylogenetic distance matrices of two interacting groups. The congruence measured by PACo indicates how concordant the two phylogenies are based on observed ecological interactions between them.
+Two sets of Principal Coordinates are superimposed by Procrustes superimposition. The sum of squared residuals of this superimposition give an indication of how congruent the two datasets are. For example, in a biological system the two sets of Principal Coordinates can be composed from the phylogenetic distance matrices of two interacting groups. The congruence measured by PACo indicates how concordant the two phylogenies are based on observed ecological interactions between them.
 }
 \note{
-Any call of PACo in which the distance matrices have differing dimensions (i.e., different numbers of tips of the two phylogenies) will produce warnings from the \code{vegan::procrustes} function. These warnings require no action by the user but are merely letting the user know that, as the distance matrices had differing dimensions, their Principle Coordinates have differing numbers of columns. \code{vegan::procrustes} deals with this internally by adding columns of zeros to the smaller of the two until the are the same size.
+Any call of PACo in which the distance matrices have differing dimensions (i.e., different numbers of tips of the two phylogenies) will produce warnings from the \code{vegan::procrustes} function. These warnings require no action by the user but are merely letting the user know that, as the distance matrices had differing dimensions, their Principal Coordinates have differing numbers of columns. \code{vegan::procrustes} deals with this internally by adding columns of zeros to the smaller of the two until the are the same size.
 }
 \examples{
 data(gopherlice)
