@@ -1,8 +1,10 @@
-#' Principle coordinate analysis of phylogenies
-#' @param D A list with objects H, P, and HP, returned by prepare_paco_data
-#' @param correction Choose the method with which to correct negative eigenvalues ('none', cailliez', 'lingoes'). Default is 'none'.
-#' @return The input list with added objects for the principal coordinates of the objects
-#' @note Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
+#' Principle Coordinates analysis of phylogenetic distance matrices
+#'
+#' Translates the distance matrices of 'host' and 'parasite' phylogenies into Principle Coordinates, as needed for Procrustes superimposition.
+#' @param D A list with objects H, P, and HP, as returned by \code{paco::prepare_paco_data}.
+#' @param correction In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principle Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are "cailliez", "lingoes", and "none". The "cailliez" and "lingoes" corrections add a constant to the eigenvalues to make them non-negative. Default is "none". 
+#' @return The list that was input as the argument `D' with two new elements; the Principle Coordinates of the `host' distance matrix and the Principle Coordinates of the `parasite' distance matrix.
+#' @note To find the Principle Coordinates of each distance matrix, we internally use a function, \code{coordpcoa}, that is a modified version of \code{ape::pcoa}, using \code{vegan::eigenvals}.
 #' @export
 #' @examples
 #' data(gopherlice)
@@ -10,7 +12,7 @@
 #' gdist <- cophenetic(gophertree)
 #' ldist <- cophenetic(licetree)
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
-#' D <- add_pcoord(D)
+#' D <- add_pcoord(D, correction='none')
 add_pcoord <- function(D, correction='none')
 {
 HP_bin <- which(D$HP >0, arr.ind=TRUE)
