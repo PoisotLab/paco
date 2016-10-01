@@ -16,17 +16,17 @@ D <- run_example (gdist, ldist, gl_links)
 
 test_that ("there is an error if there is no procrustes object", {
   D$proc <- NULL
-  expect_error (residuals (D))
+  expect_error (residuals_paco(D))
 })
 
 test_that ("residuals give out the expected type", {
-  expect_is (residuals (D), "numeric")
-  expect_is (residuals (D, type = "interaction"), "numeric")
-  expect_is (residuals (D, type = "matrix"), "matrix")
+  expect_is (residuals_paco(D$proc), "numeric")
+  expect_is (residuals_paco(D$proc, type = "interaction"), "numeric")
+  expect_is (residuals_paco(D$proc, type = "matrix"), "matrix")
 })
 
 test_that ("residuals are named", {
-  expect_is (names (residuals (D)), "character")
-  expect_is (names (residuals (D, type = "matrix")), "NULL")
-  expect_is (rownames (residuals (D, type = "matrix")), "character")
+  expect_is (names (residuals_paco(D$proc)), "character")
+  expect_is (names (residuals_paco(D$proc, type = "matrix")), "NULL")
+  expect_is (rownames (residuals_paco(D$proc, type = "matrix")), "character")
 })
