@@ -27,12 +27,12 @@ paco_links <- function(D, .parallel = FALSE, proc.warnings=TRUE)
 
   #if .parallel is TRUE
   if(.parallel==TRUE){
-  SQres.jackn <- plyr::adply(1:nlinks, 1, function(x) single_paco_link(D, HP.ones, x, correction), .parallel=.parallel)
+  SQres.jackn <- plyr::adply(1:nlinks, 1, function(x) single_paco_link(D, HP.ones, x, correction, proc.warnings), .parallel=.parallel)
 } else{
   #if .parallel is FALSE
   for(i in c(1:nlinks))
   {
-  res.Proc.ind <- single_paco_link (D, HP.ones, i, correction)
+  res.Proc.ind <- single_paco_link (D, HP.ones, i, correction, proc.warnings)
   SQres.jackn[i, ] <- res.Proc.ind
   }
 }
