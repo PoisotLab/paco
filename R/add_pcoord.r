@@ -12,7 +12,7 @@
 #' gdist <- cophenetic(gophertree)
 #' ldist <- cophenetic(licetree)
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
-#' D <- add_pcoord(D, correction='none')
+#' D <- add_pcoord(D)
 add_pcoord <- function(D, correction='none')
 {
 HP_bin <- which(D$HP >0, arr.ind=TRUE)
