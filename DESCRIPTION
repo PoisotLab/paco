@@ -15,7 +15,8 @@ Imports:
     plyr
 Suggests:
     ape,
-    doMC
+    doMC,
+    testthat
 License: MIT + file LICENSE
 URL: http://www.uv.es/cophylpaco/
 RoxygenNote: 5.0.1
