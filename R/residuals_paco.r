@@ -13,7 +13,7 @@
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
 #' D <- add_pcoord(D, correction='cailliez')
 #' D <- PACo(D, nperm=100, seed=42, method='r0')
-#' residuals.paco(D$proc)
+#' residuals_paco(D$proc)
 residuals_paco <- function (object, type = "interaction") {
   type <- match.arg(type, c("matrix", "interaction"))
 
