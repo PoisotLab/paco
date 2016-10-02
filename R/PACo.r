@@ -18,7 +18,7 @@
 #' ldist <- cophenetic(licetree)
 #' D <- prepare_paco_data(gdist, ldist, gl_links)
 #' D <- add_pcoord(D)
-#' D <- PACo(D, nperm=10, seed=42, method="r0", correction='cailliez')
+#' D <- PACo(D, nperm=10, seed=42, method="r0")
 #' print(D$gof)
 
 PACo <- function(D, nperm=1000, seed=NA, method="r0", symmetric = FALSE, proc.warnings=TRUE, shuffled=FALSE)
