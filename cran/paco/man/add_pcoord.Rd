@@ -2,23 +2,23 @@
 % Please edit documentation in R/add_pcoord.r
 \name{add_pcoord}
 \alias{add_pcoord}
-\title{Principle coordinate analysis of phylogenies}
+\title{Principal Coordinates analysis of phylogenetic distance matrices}
 \usage{
 add_pcoord(D, correction = "none")
 }
 \arguments{
-\item{D}{A list with objects H, P, and HP, returned by prepare_paco_data}
+\item{D}{A list with objects H, P, and HP, as returned by \code{paco::prepare_paco_data}.}
 
-\item{correction}{Choose the method with which to correct negative eigenvalues ('none', cailliez', 'lingoes'). Default is 'none'.}
+\item{correction}{In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principal Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are "cailliez", "lingoes", and "none". The "cailliez" and "lingoes" corrections add a constant to the eigenvalues to make them non-negative. Default is "none".}
 }
 \value{
-The input list with added objects for the principal coordinates of the objects
+The list that was input as the argument `D' with two new elements; the Principal Coordinates of the `host' distance matrix and the Principal Coordinates of the `parasite' distance matrix.
 }
 \description{
-Principle coordinate analysis of phylogenies
+Translates the distance matrices of 'host' and 'parasite' phylogenies into Principal Coordinates, as needed for Procrustes superimposition.
 }
 \note{
-Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
+To find the Principal Coordinates of each distance matrix, we internally use a function, \code{coordpcoa}, that is a modified version of \code{ape::pcoa}, using \code{vegan::eigenvals}.
 }
 \examples{
 data(gopherlice)
