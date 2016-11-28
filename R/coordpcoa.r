@@ -1,8 +1,8 @@
-#' Internal fucntion of add_pcoord performing pricipal coordinate analysis
-#' @param D A list with objects H, P, and HP, returned by prepare_paco_data
-#' @param correction The correction to apply (none, lingoes, or cailliez)
-#' @param rn rownames (optional)
-#' @note Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
+# Internal fucntion of add_pcoord performing pricipal coordinate analysis
+# D A list with objects H, P, and HP, returned by prepare_paco_data
+#  correction The correction to apply (none, lingoes, or cailliez)
+#  rn rownames (optional)
+# Internal function coordpcoa is a modified version of ape::pcoa, utilising vegan::eigenvals
 coordpcoa <-function (D, correction = "none", rn = NULL)
 {
     centre <- function(D, n) {

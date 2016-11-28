@@ -2,24 +2,22 @@
 % Please edit documentation in R/prepare_data.r
 \name{prepare_paco_data}
 \alias{prepare_paco_data}
-\title{Prepare the data
-Simple wrapper to make sure that the matrices are sorted accordingly}
+\title{Prepares the data (distance matrices and association matrix) for PACo analysis}
 \usage{
 prepare_paco_data(H, P, HP)
 }
 \arguments{
-\item{H}{Host distance matrix}
+\item{H}{Host distance matrix. This is the distance matrix upon which the other will be superimposed. We term this the host matrix in reference to the original cophylogeny studies between parasites and their hosts, where parasite evolution was thought to track host evolution hence why the parasite matrix is superimposed on the host.}
 
-\item{P}{Parasite distance matrix}
+\item{P}{Parasite distance matrix. The distance matrix that will be superimposed on the host matrix. As mentioned above, this is the group that is assumed to track the evolution of the other.}
 
-\item{HP}{Host-parasite association matrix, hosts in rows}
+\item{HP}{Host-parasite association matrix, hosts in rows. This should be a binary matrix. If host species aren't in the rows, the matrix will be translated internally.}
 }
 \value{
-A list with objects H, P, HP
+A list with objects H, P, HP to be passed to further functions for PACo analysis.
 }
 \description{
-Prepare the data
-Simple wrapper to make sure that the matrices are sorted accordingly
+Simple wrapper to make sure that the matrices are sorted accordingly and to group them together into a paco object (effectively a list) that is then passed to the remaining steps of PACo analysis.
 }
 \examples{
 data(gopherlice)
