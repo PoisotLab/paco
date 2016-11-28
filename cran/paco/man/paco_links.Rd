@@ -4,17 +4,29 @@
 \alias{paco_links}
 \title{Contribution of individual links}
 \usage{
-paco_links(D, .parallel = FALSE)
+paco_links(D, .parallel = FALSE, proc.warnings = TRUE)
 }
 \arguments{
-\item{D}{A list returned by proc_analysis}
+\item{D}{A list of class \code{paco} as returned by \code{paco::PACo}.}
 
-\item{.parallel}{if \code{TRUE}, calculate the jacknife contribution in parallel using the backend provided by foreach}
+\item{.parallel}{If TRUE, calculate the jackknife contribution in parallel using the backend provided by foreach.}
+
+\item{proc.warnings}{As in PACo. If \code{TRUE}, any warnings produced by internal calls of \code{paco::PACo} will be available for the user to view. If \code{FALSE}, warnings are internally suppressed.}
 }
 \value{
-A list with added object jacknife, containing the mean and upper CI values for each link
+The input list of class \code{paco} with the added object jackknife which containing the mean and upper CI values for each link.
 }
 \description{
-Contribution of individual links
+Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
+}
+\examples{
+data(gopherlice)
+require(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+D <- add_pcoord(D)
+D <- PACo(D, nperm=10, seed=42, method="r0")
+D <- paco_links(D)
 }
 

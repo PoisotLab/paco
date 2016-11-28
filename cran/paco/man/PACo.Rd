@@ -2,26 +2,34 @@
 % Please edit documentation in R/PACo.r
 \name{PACo}
 \alias{PACo}
-\title{Performs PACo/procustes analysis}
+\title{Performs PACo analysis.}
 \usage{
 PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
-  correction = "none")
+  proc.warnings = TRUE, shuffled = FALSE)
 }
 \arguments{
-\item{D}{a list with the data}
+\item{D}{A list of class \code{paco} as returned by \code{paco::add_pcoord} which includes Principal Coordinates for both phylogenetic distance matrices.}
 
-\item{nperm}{Number of permutations}
+\item{nperm}{The number of permutations to run. In each permutation, the network is randomized following the \code{method} argument and phylogenetic congruence between phylogenies is reassessed.}
 
-\item{seed}{Seed if results need to be reproduced}
+\item{seed}{An integer with which to begin the randomizations. If the same seed is used the randomizations will be the same and results reproducible. If \code{NA} a random seed is chosen.}
 
-\item{method}{The method to permute matrices with: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". See \code{\link[vegan]{commsim}} for details}
+\item{method}{The method with which to permute association matrices: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". Briefly, "r00" produces the least conservative null model as it only maintains total fill (i.e., total number of interactions). "r0" and "c0" maintain the row sums and column sums, respectively, as well as the total number of interactions. "backtracking" and any of the "swap" algorithms conserve the total number of interactions in the matrix, as well as both row and column sums. Finally, "r1" and "r2" conserve the row sums, the total number of interactions, and randomize based on observed interaction frequency. See \code{vegan::commsim} for more details.}
 
-\item{symmetric}{Use symmetric Procrustes statistic}
+\item{symmetric}{Logical. Whether or not to use the symmetric Procrustes statistic, or not. When \code{TRUE}, the symmetric statistic is used. When \code{FALSE}, the asymmetric is used. A decision on which to use is based on whether one group is assumed to track the evolution of the other, or not.}
 
-\item{correction}{Choose the method with which to correct negative eigenvalues in the internal call of add_pcoord ('none', cailliez', 'lingoes'). Default is 'none'.}
+\item{proc.warnings}{Logical. Make any warnings from the Procrustes superimposition callable. If \code{TRUE}, any warnings are viewable with the \code{warnings()} command. If \code{FALSE}, warnings are internally suppressed. Default is TRUE}
+
+\item{shuffled}{Logical. Return the Procrustes sum of squared residuals for every permutation of the network. When \code{TRUE}, the Procrustes statistic of all permutations is returned as a vector. When \code{FALSE}, they are not returned.}
+}
+\value{
+A \code{paco} object that now includes (alongside the Principal Coordinates and input distance matrices) the PACo sum of sqaured residuals, a p-value for this statistic, and the PACo statistics for each randomisation of the network if shuffled=TRUE in the PACo call.
 }
 \description{
-Performs PACo/procustes analysis
+Two sets of Principal Coordinates are superimposed by Procrustes superimposition. The sum of squared residuals of this superimposition give an indication of how congruent the two datasets are. For example, in a biological system the two sets of Principal Coordinates can be composed from the phylogenetic distance matrices of two interacting groups. The congruence measured by PACo indicates how concordant the two phylogenies are based on observed ecological interactions between them.
+}
+\note{
+Any call of PACo in which the distance matrices have differing dimensions (i.e., different numbers of tips of the two phylogenies) will produce warnings from the \code{vegan::procrustes} function. These warnings require no action by the user but are merely letting the user know that, as the distance matrices had differing dimensions, their Principal Coordinates have differing numbers of columns. \code{vegan::procrustes} deals with this internally by adding columns of zeros to the smaller of the two until the are the same size.
 }
 \examples{
 data(gopherlice)
@@ -30,7 +38,7 @@ gdist <- cophenetic(gophertree)
 ldist <- cophenetic(licetree)
 D <- prepare_paco_data(gdist, ldist, gl_links)
 D <- add_pcoord(D)
-D <- PACo(D, nperm=10, seed=42, method="r0", correction='cailliez')
+D <- PACo(D, nperm=10, seed=42, method="r0")
 print(D$gof)
 }
 
