@@ -1,7 +1,18 @@
 language: r
+cache: packages
+r:
+    - oldrel
+    - release
+    - devel
+
+repos:
+    CRAN: https://cloud.r-project.org
+
+r_packages:
+    - testthat
 
 r_github_packages:
-  - jimhester/covr
+    - jimhester/covr
 
 after_success:
-  - Rscript -e 'library(covr);coveralls()'
+    - Rscript -e 'library(covr);coveralls()'
