@@ -20,6 +20,5 @@ paco.tar.gz:
 	mv cran/paco.tar.gz $@
 
 clean:
+	rm paco.tar.gz
 	rm -r cran/paco
-	rm paco_0.3.0.tar.gz
-	
