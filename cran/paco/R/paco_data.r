@@ -1,9 +1,26 @@
-#' Pocket gopher and chewing lice example data
+#' Gopher phylogeny
 #'
-#' Example dataset for cophylogeny. Includes a phylogeny for pocket gophers (gophertree), a phylogeny for their chewing lice parasites (licetree), and the interactions between them (gl_links).
+#' One part of example data. The phylogeny of pocket gophers.
 #' @docType data
 #' @keywords datasets
-#' @name gopherlice
+#' @name gophertree
 #' @usage data(gopherlice)
 NULL
 
+#' Lice phylogeny
+#'
+#' One part of example data. The phylogeny of chewing lice.
+#' @docType data
+#' @keywords datasets
+#' @name licetree
+#' @usage data(gopherlice)
+NULL
+
+#' Gopher-lice interactions
+#'
+#' One part of example data. The associations between pocket gophers and their chewing lice ectoparasites.
+#' @docType data
+#' @keywords datasets
+#' @name gl_links
+#' @usage data(gopherlice)
+NULL
