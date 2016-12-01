@@ -45,4 +45,4 @@ test_that ("using shuffling works", {
 
     expect_is (D$gof$n, "numeric")
 
-}
+})
