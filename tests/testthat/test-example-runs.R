@@ -28,7 +28,7 @@ test_that ("using names in coordpcoa works", {
     ldist <- cophenetic(licetree)
 
     D <- prepare_paco_data(gdist, ldist, gl_links)
-    paco::coordpcoa(D, rn=c(1:nrow(D)))
+    paco:::coordpcoa(D, rn=c(1:nrow(D)))
 
 })
 
