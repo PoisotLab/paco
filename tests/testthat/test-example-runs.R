@@ -32,3 +32,17 @@ test_that ("using names in coordpcoa works", {
 
 })
 
+test_that ("using shuffling works", {
+
+    data(gopherlice)
+    library(ape)
+    gdist <- cophenetic(gophertree)
+    ldist <- cophenetic(licetree)
+
+    D <- prepare_paco_data(gdist, ldist, gl_links)
+    D <- add_pcoord(D, correction="none")
+    D <- PACo(D, nperm = 10, seed = 42, method = "r0", shuffled = TRUE)
+
+    expect_is (D$gof$n, "numeric")
+
+}
