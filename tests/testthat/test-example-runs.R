@@ -20,18 +20,6 @@ test_that ("paco example works as expected", {
 
 })
 
-test_that ("using names in coordpcoa works", {
-
-    data(gopherlice)
-    library(ape)
-    gdist <- cophenetic(gophertree)
-    ldist <- cophenetic(licetree)
-
-    D <- prepare_paco_data(gdist, ldist, gl_links)
-    paco:::coordpcoa(D, rn=c(1:nrow(D)))
-
-})
-
 test_that ("using shuffling works", {
 
     data(gopherlice)
