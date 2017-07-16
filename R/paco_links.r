@@ -16,38 +16,41 @@
 #' D <- PACo(D, nperm=10, seed=42, method="r0")
 #' D <- paco_links(D)
 
-paco_links <- function(D, .parallel = FALSE, proc.warnings=TRUE)
-{
-   correction <- D$correction
-   HP.ones <- which(D$HP > 0, arr.ind=TRUE)
-   SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
-   colnames(SQres.jackn) <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
-   t.critical = stats::qt(0.975,sum(D$HP)-1) #Needed to compute 95% confidence intervals.
-   nlinks <- sum(D$HP)
+paco_links <- function(D, .parallel = FALSE, proc.warnings=TRUE){
+
+  correction <- D$correction
+  HP.ones <- which(D$HP > 0, arr.ind=TRUE)
+  SQres.jackn <- matrix(rep(NA, sum(D$HP)^2), sum(D$HP))# empty matrix of jackknifed squared residuals
+  colnames(SQres.jackn) <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-") #colnames identify the H-P link
+  t.critical = stats::qt(0.975,sum(D$HP)-1) #Needed to compute 95% confidence intervals.
+  nlinks <- sum(D$HP)
 
   #if .parallel is TRUE
   if(.parallel==TRUE){
-  SQres.jackn <- plyr::adply(1:nlinks, 1, function(x) single_paco_link(D, HP.ones, x, correction, proc.warnings), .parallel=.parallel)
-} else{
-  #if .parallel is FALSE
-  for(i in c(1:nlinks))
-  {
-  res.Proc.ind <- single_paco_link (D, HP.ones, i, correction, proc.warnings)
-  SQres.jackn[i, ] <- res.Proc.ind
+    SQres.jackn <- plyr::adply(1:nlinks, 1, 
+      function(i) single_paco_link(D, HP.ones, i, correction, proc.warnings), 
+      .parallel=.parallel)
+    SQres.jackn <- SQres.jackn[,-1]
+    colnames(SQres.jackn)[1] <- paste(rownames(D$proc$X),rownames(D$proc$Yrot), sep="-")[1]
+  }else{
+    #if .parallel is FALSE
+    for(i in c(1:nlinks)){
+      res.Proc.ind <- single_paco_link (D, HP.ones, i, correction, proc.warnings)
+      SQres.jackn[i, ] <- res.Proc.ind
+    }
   }
-}
 
-   SQres.jackn <- SQres.jackn^2 #Jackknifed residuals are squared
-   SQres <- (stats::residuals(D$proc))^2 # Vector of original square residuals
-   #jackknife calculations:
-   SQres.jackn <- SQres.jackn*(-(sum(D$HP)-1))
-   SQres <- SQres*sum(D$HP)
-   SQres.jackn <- t(apply(SQres.jackn, 1, "+", SQres)) #apply jackknife function to matrix
-   phi.mean <- apply(SQres.jackn, 2, mean, na.rm = TRUE) #mean jackknife estimate per link
-   phi.UCI <- apply(SQres.jackn, 2, stats::sd, na.rm = TRUE) #standard deviation of estimates
-   phi.UCI <- phi.mean + t.critical * phi.UCI/sqrt(sum(D$HP))
-   D$jackknife <- list(mean = phi.mean, upper = phi.UCI)
-   return(D)
+  SQres.jackn <- SQres.jackn^2 #Jackknifed residuals are squared
+  SQres <- (stats::residuals(D$proc))^2 # Vector of original square residuals
+  #jackknife calculations:
+  SQres.jackn <- SQres.jackn*(-(sum(D$HP)-1))
+  SQres <- SQres*sum(D$HP)
+  SQres.jackn <- t(apply(SQres.jackn, 1, "+", SQres)) #apply jackknife function to matrix
+  phi.mean <- apply(SQres.jackn, 2, mean, na.rm = TRUE) #mean jackknife estimate per link
+  phi.UCI <- apply(SQres.jackn, 2, stats::sd, na.rm = TRUE) #standard deviation of estimates
+  phi.UCI <- phi.mean + t.critical * phi.UCI/sqrt(sum(D$HP))
+  D$jackknife <- list(mean = phi.mean, upper = phi.UCI)
+  return(D)
 }
 
 #PACo setting the ith link = 0
