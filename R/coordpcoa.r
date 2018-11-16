@@ -29,7 +29,7 @@ coordpcoa <-function (D, correction = "none", rn = NULL)
     delta1 <- centre((-0.5 * D^2), n)
     trace <- sum(diag(delta1))
     D.eig <- eigen(delta1, symmetric=TRUE)
-    #D.eig$values <- zapsmall(vegan::eigenvals(D.eig))
+    D.eig$values <- zapsmall(vegan::eigenvals(D.eig))
     D.eig$values <- D.eig$values
     zero.eig <- which(D.eig$values < epsilon)
     min.eig <- min(D.eig$values)
