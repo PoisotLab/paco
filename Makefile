@@ -16,7 +16,7 @@ test: cran/paco doc
 
 paco.tar.gz:
 	rm $@ 2>/dev/null; true
-	cd cran; tar -zcvf paco.tar.gz paco
+	cd cran; R CMD build paco
 	mv cran/paco.tar.gz $@
 
 clean:
