@@ -4,7 +4,7 @@
 #' @param D A list with objects H, P, and HP, as returned by \code{paco::prepare_paco_data}.
 #' @param correction In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principal Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are "cailliez", "lingoes", and "none". The "cailliez" and "lingoes" corrections add a constant to the eigenvalues to make them non-negative. Default is "none". 
 #' @return The list that was input as the argument `D' with two new elements; the Principal Coordinates of the `host' distance matrix and the Principal Coordinates of the `parasite' distance matrix.
-#' @note To find the Principal Coordinates of each distance matrix, we internally use the function \code{pcoa} from the package \code{ape}. \code{ape} must be installed.
+#' @note To find the Principal Coordinates of each distance matrix, we internally a modified version of the function \code{ape::pcoa} that uses \code{vegan::eigenvals} 
 #' @export
 #' @examples
 #' data(gopherlice)
