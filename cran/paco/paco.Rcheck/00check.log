@@ -1,11 +1,21 @@
-* using log directory ‘/home/matthew/Desktop/paco/cran/paco/paco.Rcheck’
+* using log directory ‘/home/matthew/Desktop/paco/paco.Rcheck’
 * using R version 3.2.3 (2015-12-10)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
+* using option ‘--as-cran’
 * checking for file ‘paco/DESCRIPTION’ ... OK
 * this is package ‘paco’ version ‘0.3.2’
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Matthew Hutchinson <matthewhutchinson15@gmail.com>’
+
+License components with restrictions and base license permitting such:
+  MIT + file LICENSE
+File 'LICENSE':
+  YEAR: 2015
+  COPYRIGHT HOLDER: The Poisot Lab @ U. Montréal / The Stouffer Lab @ U. Canterbury
 * checking package namespace information ... OK
-* checking package dependencies ... OK
+* checking package dependencies ... NOTE
+  No repository set, so cyclic dependency check skipped
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
 * checking for executable files ... OK
@@ -28,6 +38,7 @@
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
@@ -35,6 +46,7 @@
 * checking R code for possible problems ... OK
 * checking Rd files ... OK
 * checking Rd metadata ... OK
+* checking Rd line widths ... OK
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
@@ -62,4 +74,4 @@ l.276 ^^M
 !  ==> Fatal error occurred, no output PDF file produced!
 * checking PDF version of manual without hyperrefs or index ... OK
 * DONE
-Status: 1 WARNING
+Status: 1 WARNING, 2 NOTEs

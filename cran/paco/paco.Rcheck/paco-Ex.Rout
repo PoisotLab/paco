@@ -20,6 +20,18 @@ Type 'q()' to quit R.
 > pkgname <- "paco"
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
+> base::assign(".ExTimings", "paco-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
 > library('paco')
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -29,6 +41,7 @@ Type 'q()' to quit R.
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: PACo
 > ### Title: Performs PACo analysis.
 > ### Aliases: PACo
@@ -89,6 +102,8 @@ $n
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("PACo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘package:ape’
@@ -98,6 +113,7 @@ detaching ‘package:ape’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: add_pcoord
 > ### Title: Principal Coordinates analysis of phylogenetic distance matrices
 > ### Aliases: add_pcoord
@@ -113,6 +129,8 @@ detaching ‘package:ape’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("add_pcoord", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘package:ape’
@@ -122,6 +140,7 @@ detaching ‘package:ape’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: paco_links
 > ### Title: Contribution of individual links
 > ### Aliases: paco_links
@@ -224,6 +243,8 @@ Warning in vegan::procrustes(X = PACo.ind$H_PCo, Y = PACo.ind$P_PCo) :
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("paco_links", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘package:ape’
@@ -233,6 +254,7 @@ detaching ‘package:ape’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: prepare_paco_data
 > ### Title: Prepares the data (distance matrices and association matrix) for
 > ###   PACo analysis
@@ -248,6 +270,8 @@ detaching ‘package:ape’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("prepare_paco_data", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘package:ape’
@@ -257,6 +281,7 @@ detaching ‘package:ape’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: residuals_paco
 > ### Title: Return Procrustes residuals from a paco object
 > ### Aliases: residuals_paco
@@ -583,11 +608,13 @@ Warning in vegan::procrustes(X = perm_paco$H_PCo, Y = perm_paco$P_PCo, symmetric
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("residuals_paco", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > ### * <FOOTER>
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.648 0.032 1.682 0 0 
+Time elapsed:  1.684 0.04 1.724 0 0 
 > grDevices::dev.off()
 null device 
           1 

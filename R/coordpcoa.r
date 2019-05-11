@@ -30,7 +30,7 @@ coordpcoa <- function (D, correction = "none", rn = NULL)
     delta1 <- centre((-0.5 * D^2), n)
     trace <- sum(diag(delta1))
     D.eig <- eigen(delta1)
-    D.eig$values <- zapsmall(vegan::eigenvals(D.eig))
+    D.eig$values <- as.numeric(zapsmall(vegan::eigenvals(D.eig)))
     min.eig <- min(D.eig$values)
     zero.eig <- which(abs(D.eig$values) < epsilon)
     D.eig$values[zero.eig] <- 0
@@ -88,6 +88,7 @@ coordpcoa <- function (D, correction = "none", rn = NULL)
             diag(D) <- 0
             mat.cor <- centre(D, n)
             toto.cor <- eigen(mat.cor)
+            toto.cor$values <- as.numeric(zapsmall(vegan::eigenvals(toto.cor)))
             trace.cor <- sum(diag(mat.cor))
             min.eig.cor <- min(toto.cor$values)
             zero.eig.cor <- which((toto.cor$values < epsilon) & 

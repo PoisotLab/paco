@@ -15,5 +15,5 @@ License: MIT + file LICENSE
 URL: http://www.uv.es/cophylpaco/
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2017-07-16 17:50:37 UTC; matthew
-Built: R 3.2.3; ; 2017-07-16 17:50:56 UTC; unix
+Packaged: 2017-07-16 17:53:24 UTC; matthew
+Built: R 3.2.3; ; 2017-07-16 17:58:10 UTC; unix
