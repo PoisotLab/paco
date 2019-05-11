@@ -1,0 +1,10 @@
+PACo                    Performs PACo analysis.
+add_pcoord              Principal Coordinates analysis of phylogenetic
+                        distance matrices
+gl_links                Gopher-lice interactions
+gophertree              Gopher phylogeny
+licetree                Lice phylogeny
+paco_links              Contribution of individual links
+prepare_paco_data       Prepares the data (distance matrices and
+                        association matrix) for PACo analysis
+residuals_paco          Return Procrustes residuals from a paco object

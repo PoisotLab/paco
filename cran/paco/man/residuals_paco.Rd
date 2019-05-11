@@ -27,4 +27,3 @@ D <- add_pcoord(D, correction='cailliez')
 D <- PACo(D, nperm=100, seed=42, method='r0')
 residuals_paco(D$proc)
 }
-

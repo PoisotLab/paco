@@ -1,0 +1,17 @@
+Package: paco
+Version: 0.3.2
+Date: 2017-07-16
+Title: Procrustes Application to Cophylogenetic Analysis
+Description: Procrustes analyses to infer co-phylogenetic
+    matching between pairs of (ultrametric) phylogenetic trees.
+Author: Juan Antonio Balbuena <j.a.balbuena@uv.es>, Timothee Poisot
+    <tim@poisotlab.io>, Matthew Hutchinson <matthewhutchinson15@gmail.com>,
+    Fernando Cagua <fernando@cagua.co>
+Maintainer: Matthew Hutchinson <matthewhutchinson15@gmail.com>
+Depends: R (>= 3.0.0)
+Imports: vegan (>= 2.2-0), plyr
+Suggests: ape, testthat
+License: MIT + file LICENSE
+URL: http://www.uv.es/cophylpaco/
+RoxygenNote: 6.0.1
+Built: R 3.2.3; ; 2017-07-16 17:46:36 UTC; unix

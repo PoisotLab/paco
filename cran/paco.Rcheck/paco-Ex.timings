@@ -1,0 +1,6 @@
+name	user	system	elapsed
+PACo	1.072	0.020	1.092	
+add_pcoord	0.012	0.000	0.012	
+paco_links	0.184	0.000	0.185	
+prepare_paco_data	0.004	0.004	0.009	
+residuals_paco	0.328	0.000	0.328	
