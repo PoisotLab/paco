@@ -12,7 +12,7 @@ add_pcoord(D, correction = "none")
 \item{correction}{In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principal Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are "cailliez", "lingoes", and "none". The "cailliez" and "lingoes" corrections add a constant to the eigenvalues to make them non-negative. Default is "none".}
 }
 \value{
-The list that was input as the argument `D' with two new elements; the Principal Coordinates of the `host' distance matrix and the Principal Coordinates of the `parasite' distance matrix.
+The list that was input as the argument `D' with four new elements; the Principal Coordinates of the `host' distance matrix and the Principal Coordinates of the `parasite' distance matrix, as well as, a `correction' object stating the correction used for negative eigenvalues and a `note' object stating whether or not negative eigenvalues were present and therefore corrected.
 }
 \description{
 Translates the distance matrices of 'host' and 'parasite' phylogenies into Principal Coordinates, as needed for Procrustes superimposition.
