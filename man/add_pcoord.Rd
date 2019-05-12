@@ -18,7 +18,7 @@ The list that was input as the argument `D' with four new elements; the Principa
 Translates the distance matrices of 'host' and 'parasite' phylogenies into Principal Coordinates, as needed for Procrustes superimposition.
 }
 \note{
-To find the Principal Coordinates of each distance matrix, we internally a modified version of the function \code{ape::pcoa} that uses \code{vegan::eigenvals}
+To find the Principal Coordinates of each distance matrix, we internally a modified version of the function \code{ape::pcoa} that uses \code{vegan::eigenvals} and zapsmall
 }
 \examples{
 data(gopherlice)
