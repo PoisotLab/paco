@@ -1,0 +1,278 @@
+\nonstopmode{}
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `paco'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\inputencoding{utf8}
+\item[Version]\AsIs{0.4.0}
+\item[Date]\AsIs{2019-05-12}
+\item[Title]\AsIs{Procrustes Application to Cophylogenetic Analysis}
+\item[Description]\AsIs{Procrustes analyses to infer co-phylogenetic
+matching between pairs of (ultrametric) phylogenetic trees.}
+\item[Author]\AsIs{Juan Antonio Balbuena }\email{j.a.balbuena@uv.es}\AsIs{, Timothee Poisot
+}\email{tim@poisotlab.io}\AsIs{, Matthew Hutchinson }\email{matthewhutchinson15@gmail.com}\AsIs{,
+Fernando Cagua }\email{fernando@cagua.co}\AsIs{}
+\item[Maintainer]\AsIs{Matthew Hutchinson }\email{matthewhutchinson15@gmail.com}\AsIs{}
+\item[Depends]\AsIs{R (>= 3.0.0)}
+\item[Imports]\AsIs{vegan (>= 2.2-0), ape, plyr}
+\item[Suggests]\AsIs{testthat}
+\item[License]\AsIs{MIT + file LICENSE}
+\item[URL]\AsIs{}\url{http://www.uv.es/cophylpaco/}\AsIs{}
+\item[Encoding]\AsIs{UTF-8}
+\item[RoxygenNote]\AsIs{6.1.1}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{add\_pcoord}{Principal Coordinates analysis of phylogenetic distance matrices}{add.Rul.pcoord}
+%
+\begin{Description}\relax
+Translates the distance matrices of 'host' and 'parasite' phylogenies into Principal Coordinates, as needed for Procrustes superimposition.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+add_pcoord(D, correction = "none")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{D}] A list with objects H, P, and HP, as returned by \code{paco::prepare\_paco\_data}.
+
+\item[\code{correction}] In some cases, phylogenetic distance matrices are non-Euclidean which generates negative eigenvalues when those matrices are translated into Principal Coordinates. There are several methods to correct negative eigenvalues. Correction options available here are "cailliez", "lingoes", and "none". The "cailliez" and "lingoes" corrections add a constant to the eigenvalues to make them non-negative. Default is "none".
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+The list that was input as the argument `D' with four new elements; the Principal Coordinates of the `host' distance matrix and the Principal Coordinates of the `parasite' distance matrix, as well as, a `correction' object stating the correction used for negative eigenvalues and a `note' object stating whether or not negative eigenvalues were present and therefore corrected.
+\end{Value}
+%
+\begin{Note}\relax
+To find the Principal Coordinates of each distance matrix, we internally a modified version of the function \code{ape::pcoa} that uses \code{vegan::eigenvals} and zapsmall
+\end{Note}
+%
+\begin{Examples}
+\begin{ExampleCode}
+data(gopherlice)
+library(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+D <- add_pcoord(D)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{gl\_links}{Gopher-lice interactions}{gl.Rul.links}
+\keyword{datasets}{gl\_links}
+%
+\begin{Description}\relax
+One part of example data. The associations between pocket gophers and their chewing lice ectoparasites.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data(gopherlice)
+\end{verbatim}
+\end{Usage}
+\inputencoding{utf8}
+\HeaderA{gophertree}{Gopher phylogeny}{gophertree}
+\keyword{datasets}{gophertree}
+%
+\begin{Description}\relax
+One part of example data. The phylogeny of pocket gophers.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data(gopherlice)
+\end{verbatim}
+\end{Usage}
+\inputencoding{utf8}
+\HeaderA{licetree}{Lice phylogeny}{licetree}
+\keyword{datasets}{licetree}
+%
+\begin{Description}\relax
+One part of example data. The phylogeny of chewing lice.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+data(gopherlice)
+\end{verbatim}
+\end{Usage}
+\inputencoding{utf8}
+\HeaderA{PACo}{Performs PACo analysis.}{PACo}
+%
+\begin{Description}\relax
+Two sets of Principal Coordinates are superimposed by Procrustes superimposition. The sum of squared residuals of this superimposition give an indication of how congruent the two datasets are. For example, in a biological system the two sets of Principal Coordinates can be composed from the phylogenetic distance matrices of two interacting groups. The congruence measured by PACo indicates how concordant the two phylogenies are based on observed ecological interactions between them.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
+  proc.warnings = TRUE, shuffled = FALSE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{D}] A list of class \code{paco} as returned by \code{paco::add\_pcoord} which includes Principal Coordinates for both phylogenetic distance matrices.
+
+\item[\code{nperm}] The number of permutations to run. In each permutation, the network is randomized following the \code{method} argument and phylogenetic congruence between phylogenies is reassessed.
+
+\item[\code{seed}] An integer with which to begin the randomizations. If the same seed is used the randomizations will be the same and results reproducible. If \code{NA} a random seed is chosen.
+
+\item[\code{method}] The method with which to permute association matrices: "r0", "r1", "r2", "c0", "swap", "quasiswap", "backtrack", "tswap", "r00". Briefly, "r00" produces the least conservative null model as it only maintains total fill (i.e., total number of interactions). "r0" and "c0" maintain the row sums and column sums, respectively, as well as the total number of interactions. "backtracking" and any of the "swap" algorithms conserve the total number of interactions in the matrix, as well as both row and column sums. Finally, "r1" and "r2" conserve the row sums, the total number of interactions, and randomize based on observed interaction frequency. See \code{vegan::commsim} for more details.
+
+\item[\code{symmetric}] Logical. Whether or not to use the symmetric Procrustes statistic, or not. When \code{TRUE}, the symmetric statistic is used. When \code{FALSE}, the asymmetric is used. A decision on which to use is based on whether one group is assumed to track the evolution of the other, or not.
+
+\item[\code{proc.warnings}] Logical. Make any warnings from the Procrustes superimposition callable. If \code{TRUE}, any warnings are viewable with the \code{warnings()} command. If \code{FALSE}, warnings are internally suppressed. Default is TRUE
+
+\item[\code{shuffled}] Logical. Return the Procrustes sum of squared residuals for every permutation of the network. When \code{TRUE}, the Procrustes statistic of all permutations is returned as a vector. When \code{FALSE}, they are not returned.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A \code{paco} object that now includes (alongside the Principal Coordinates and input distance matrices) the PACo sum of sqaured residuals, a p-value for this statistic, and the PACo statistics for each randomisation of the network if shuffled=TRUE in the PACo call.
+\end{Value}
+%
+\begin{Note}\relax
+Any call of PACo in which the distance matrices have differing dimensions (i.e., different numbers of tips of the two phylogenies) will produce warnings from the \code{vegan::procrustes} function. These warnings require no action by the user but are merely letting the user know that, as the distance matrices had differing dimensions, their Principal Coordinates have differing numbers of columns. \code{vegan::procrustes} deals with this internally by adding columns of zeros to the smaller of the two until the are the same size.
+\end{Note}
+%
+\begin{Examples}
+\begin{ExampleCode}
+data(gopherlice)
+require(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+D <- add_pcoord(D)
+D <- PACo(D, nperm=10, seed=42, method="r0")
+print(D$gof)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{paco\_links}{Contribution of individual links}{paco.Rul.links}
+%
+\begin{Description}\relax
+Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+paco_links(D, .parallel = FALSE, proc.warnings = TRUE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{D}] A list of class \code{paco} as returned by \code{paco::PACo}.
+
+\item[\code{.parallel}] If TRUE, calculate the jackknife contribution in parallel using the backend provided by foreach.
+
+\item[\code{proc.warnings}] As in PACo. If \code{TRUE}, any warnings produced by internal calls of \code{paco::PACo} will be available for the user to view. If \code{FALSE}, warnings are internally suppressed.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+The input list of class \code{paco} with the added object jackknife which containing the mean and upper CI values for each link.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+data(gopherlice)
+require(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+D <- add_pcoord(D)
+D <- PACo(D, nperm=10, seed=42, method="r0")
+D <- paco_links(D)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{prepare\_paco\_data}{Prepares the data (distance matrices and association matrix) for PACo analysis}{prepare.Rul.paco.Rul.data}
+%
+\begin{Description}\relax
+Simple wrapper to make sure that the matrices are sorted accordingly and to group them together into a paco object (effectively a list) that is then passed to the remaining steps of PACo analysis.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+prepare_paco_data(H, P, HP)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{H}] Host distance matrix. This is the distance matrix upon which the other will be superimposed. We term this the host matrix in reference to the original cophylogeny studies between parasites and their hosts, where parasite evolution was thought to track host evolution hence why the parasite matrix is superimposed on the host.
+
+\item[\code{P}] Parasite distance matrix. The distance matrix that will be superimposed on the host matrix. As mentioned above, this is the group that is assumed to track the evolution of the other.
+
+\item[\code{HP}] Host-parasite association matrix, hosts in rows. This should be a binary matrix. If host species aren't in the rows, the matrix will be translated internally.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list with objects H, P, HP to be passed to further functions for PACo analysis.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+data(gopherlice)
+library(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{residuals\_paco}{Return Procrustes residuals from a paco object}{residuals.Rul.paco}
+%
+\begin{Description}\relax
+Takes the Procrustes object from \code{vegan::procrustes} of the global superimpostion and pulls out either the residual matrix of superimposition or the residual of each individual interaction (link between host and parasite).
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+residuals_paco(object, type = "interaction")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{object}] An obejct of class \code{procrustes} as returned from PACo (and internally the \code{vegan::procrustes} function). In a PACo output this is \code{D\$proc}.
+
+\item[\code{type}] Character string. Whether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+If \code{type=interaction}, a named vector of the Procrustes residuals is returned where names are the interactions. If \code{type=matrix}, a matrix of residuals from Procrustes superimposition is returned.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+data(gopherlice)
+library(ape)
+gdist <- cophenetic(gophertree)
+ldist <- cophenetic(licetree)
+D <- prepare_paco_data(gdist, ldist, gl_links)
+D <- add_pcoord(D, correction='cailliez')
+D <- PACo(D, nperm=100, seed=42, method='r0')
+residuals_paco(D$proc)
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}
