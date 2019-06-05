@@ -1,6 +1,6 @@
 Package: paco
-Version: 0.4.0
-Date: 2019-05-12
+Version: 0.4.1
+Date: 2019-05-20
 Title: Procrustes Application to Cophylogenetic Analysis
 Description: Procrustes analyses to infer co-phylogenetic
     matching between pairs of (ultrametric) phylogenetic trees.
@@ -16,6 +16,7 @@ Imports:
     plyr
 Suggests:
     testthat
+Note: The current version (0.4.1) fixes an issue in the add_pcoord function where negative eigenvalues were left uncorrected when the user specified that a correction be applied.
 License: MIT + file LICENSE
 URL: http://www.uv.es/cophylpaco/
 Encoding: UTF-8
