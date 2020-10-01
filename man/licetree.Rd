@@ -11,4 +11,3 @@ data(gopherlice)
 One part of example data. The phylogeny of chewing lice.
 }
 \keyword{datasets}
-

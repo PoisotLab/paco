@@ -11,4 +11,3 @@ data(gopherlice)
 One part of example data. The associations between pocket gophers and their chewing lice ectoparasites.
 }
 \keyword{datasets}
-

@@ -7,7 +7,7 @@
 residuals_paco(object, type = "interaction")
 }
 \arguments{
-\item{object}{An obejct of class \code{procrustes} as returned from PACo (and internally the \code{vegan::procrustes} function). In a PACo output this is \code{D$proc}.}
+\item{object}{An obejct of class \code{procrustes} as returned from PACo (and internally the \code{vegan::procrustes} function). In a PACo output this is D\$proc.}
 
 \item{type}{Character string. Whether the whole residual matrix (\code{matrix}) or the residuals per interaction (\code{interaction}) is desired.}
 }
@@ -27,4 +27,3 @@ D <- add_pcoord(D, correction='cailliez')
 D <- PACo(D, nperm=100, seed=42, method='r0')
 residuals_paco(D$proc)
 }
-
