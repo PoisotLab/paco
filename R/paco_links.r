@@ -1,10 +1,10 @@
 #' Contribution of individual links
 #'
-#' Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
+#' Uses a jackknife procedure to perform bias correction on procrustes residuals (i.e. interactions) that are indicative of the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and bias in observed residuals calculated and corrected.
 #' @param D A list of class \code{paco} as returned by \code{paco::PACo}. 
 #' @param .parallel If TRUE, calculate the jackknife contribution in parallel using the backend provided by foreach.
 #' @param proc.warnings As in PACo. If \code{TRUE}, any warnings produced by internal calls of \code{paco::PACo} will be available for the user to view. If \code{FALSE}, warnings are internally suppressed.
-#' @return The input list of class \code{paco} with the added object jackknife which containing the mean and upper CI values for each link.
+#' @return The input list of class \code{paco} with the added object jackknife which contains the bias-corrected residual for each link.
 #' @export
 #' @examples
 #' data(gopherlice)
@@ -40,16 +40,12 @@ paco_links <- function(D, .parallel = FALSE, proc.warnings=TRUE){
     }
   }
 
-  SQres.jackn <- SQres.jackn^2 #Jackknifed residuals are squared
-  SQres <- (stats::residuals(D$proc))^2 # Vector of original square residuals
-  #jackknife calculations:
-  SQres.jackn <- SQres.jackn*(-(sum(D$HP)-1))
-  SQres <- SQres*sum(D$HP)
-  SQres.jackn <- t(apply(SQres.jackn, 1, "+", SQres)) #apply jackknife function to matrix
-  phi.mean <- apply(SQres.jackn, 2, mean, na.rm = TRUE) #mean jackknife estimate per link
-  phi.UCI <- apply(SQres.jackn, 2, stats::sd, na.rm = TRUE) #standard deviation of estimates
-  phi.UCI <- phi.mean + t.critical * phi.UCI/sqrt(sum(D$HP))
-  D$jackknife <- list(mean = phi.mean, upper = phi.UCI)
+  SQres <- residuals_paco(D$proc) # Vector of original square residuals
+  # #jackknife calculations:
+  SQres.jackn.mean <- apply(SQres.jackn, 2, function(x) (1/sum(D$HP))*sum(x, na.rm=TRUE)) # calculate average across all runs
+  phi.mean <- (sum(D$HP)*SQres)-((sum(D$HP)-1)*SQres.jackn.mean) # calculate bias-corrected jackknife estimate
+  
+  D$jackknife <- phi.mean
   return(D)
 }
 
@@ -59,9 +55,9 @@ single_paco_link <- function (D, HP.ones, i, correction, proc.warnings) {
   HP_ind[HP.ones[i,1],HP.ones[i,2]]=0
   PACo.ind <- add_pcoord(list(H=D$H, P=D$P, HP=HP_ind), correction=correction)
   if(proc.warnings==TRUE){
-    Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo)
+    Proc.ind <- vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo, symmetric=D$symmetric)
   }else{
-      Proc.ind <- suppressWarnings(vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo))
+      Proc.ind <- suppressWarnings(vegan::procrustes(X=PACo.ind$H_PCo, Y=PACo.ind$P_PCo, symmetric=D$symmetric))
   }
   res.Proc.ind <- c(residuals_paco(Proc.ind))
   res.Proc.ind <- append(res.Proc.ind, NA, after= i-1)

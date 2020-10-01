@@ -14,10 +14,10 @@ paco_links(D, .parallel = FALSE, proc.warnings = TRUE)
 \item{proc.warnings}{As in PACo. If \code{TRUE}, any warnings produced by internal calls of \code{paco::PACo} will be available for the user to view. If \code{FALSE}, warnings are internally suppressed.}
 }
 \value{
-The input list of class \code{paco} with the added object jackknife which containing the mean and upper CI values for each link.
+The input list of class \code{paco} with the added object jackknife which contains the bias-corrected residual for each link.
 }
 \description{
-Uses a jackknife procedure to estimate the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and the difference between global fit with and without an interaction estimates the strength of support of said interaction to a hypothesis of phylogenetic congruence.
+Uses a jackknife procedure to perform bias correction on procrustes residuals (i.e. interactions) that are indicative of the degree to which individual interactions are more supportive of a hypothesis of phylogenetic congruence than others. Interactions are iteratively removed, the global fit of the two phylogenies is reassessed and bias in observed residuals calculated and corrected.
 }
 \examples{
 data(gopherlice)

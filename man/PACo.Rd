@@ -4,8 +4,15 @@
 \alias{PACo}
 \title{Performs PACo analysis.}
 \usage{
-PACo(D, nperm = 1000, seed = NA, method = "r0", symmetric = FALSE,
-  proc.warnings = TRUE, shuffled = FALSE)
+PACo(
+  D,
+  nperm = 1000,
+  seed = NA,
+  method = "r0",
+  symmetric = FALSE,
+  proc.warnings = TRUE,
+  shuffled = FALSE
+)
 }
 \arguments{
 \item{D}{A list of class \code{paco} as returned by \code{paco::add_pcoord} which includes Principal Coordinates for both phylogenetic distance matrices.}

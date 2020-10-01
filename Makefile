@@ -1,4 +1,4 @@
-ALL: paco.tar.gz
+ALL: paco_0.4.2.tar.gz
 
 doc: R/*.r
 	R -e "library(devtools); document('.')"
@@ -17,8 +17,10 @@ test: cran/paco doc
 paco.tar.gz:
 	rm $@ 2>/dev/null; true
 	cd cran; R CMD build paco
-	mv cran/paco.tar.gz $@
+	mv paco_0.4.2.tar.gz ../
+	cd ../
+	R CMD check --as-cran paco_0.4.2.tar.gz
 
 clean:
-	rm paco.tar.gz
+	rm paco_0.4.2.tar.gz
 	rm -r cran/paco
